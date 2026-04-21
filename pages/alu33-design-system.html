@@ -1,1 +1,978 @@
-<!-- PLACEHOLDER - uploading full file -->
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Alu33 · Design System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+<style>
+/* === RESET === */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{font-family:var(--font-body);font-size:1rem;line-height:1.65;color:var(--body);background:var(--white);-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+img{max-width:100%;display:block}
+a{text-decoration:none;color:inherit}
+ul{list-style:none}
+code{font-family:var(--font-mono);font-size:0.8125rem;background:rgba(10,151,163,0.08);padding:0.125rem 0.375rem;border-radius:0.25rem}
+
+/* === TOKENS === */
+:root{
+  --primary:#0A97A3;
+  --dark:#07747E;
+  --light:#5BC4CE;
+  --secondary:#055A75;
+  --accent-bg:#E2FCF6;
+  --heading:#050709;
+  --body:#37393A;
+  --muted:#6B7280;
+  --bg-soft:#FAF9F7;
+  --white:#FFFFFF;
+  --footer-bg:#1E2022;
+  --card-border:rgba(5,7,9,0.06);
+  --card-shadow-subtle:0 1px 2px rgba(5,7,9,0.03);
+  --card-shadow-elevated:0 1px 2px rgba(5,7,9,0.04),0 4px 16px -4px rgba(5,7,9,0.05),0 16px 40px -12px rgba(5,7,9,0.04);
+  --card-shadow-hero:0 1px 2px rgba(5,7,9,0.04),0 8px 24px -4px rgba(5,7,9,0.1),0 20px 40px -12px rgba(10,151,163,0.06);
+  --pill-glow:0 1px 2px rgba(5,7,9,0.04),0 0 0 4px rgba(10,151,163,0.04);
+  --google-blue:#1F87FC;
+  --google-yellow:#FBBC05;
+  --gold:#D97706;
+  --gold-bg:#FEF3C7;
+  --warm-grey:#78716C;
+  --warm-grey-bg:#F4F4F3;
+  --font-body:'Plus Jakarta Sans',sans-serif;
+  --font-heading:'Plus Jakarta Sans',sans-serif;
+  --font-mono:'SF Mono','Menlo','Consolas',monospace;
+  --radius-xs:0.375rem;
+  --radius-sm:0.5rem;
+  --radius-md:0.875rem;
+  --radius-lg:1.25rem;
+  --radius-xl:1.5rem;
+  --radius-2xl:1.75rem;
+  --radius-pill:3rem;
+  --transition:200ms ease-out;
+}
+
+/* === LAYOUT === */
+.container{max-width:72rem;margin-left:auto;margin-right:auto;padding-left:2.5rem;padding-right:2.5rem}
+.section{padding-top:5rem;padding-bottom:5rem}
+.section-dark{background:var(--footer-bg);color:var(--white)}
+.section-dark .section-desc{color:rgba(255,255,255,0.6)}
+.section-dark h3{color:var(--white)}
+.section-dark code{background:rgba(255,255,255,0.1);color:var(--light)}
+.section-soft{background:var(--bg-soft)}
+.section-label{display:block;font-size:0.75rem;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--primary);margin-bottom:1rem}
+.section-dark .section-label{color:var(--light)}
+h2{font-family:var(--font-heading);font-size:2.5rem;font-weight:700;letter-spacing:-0.025em;line-height:1.15;color:var(--heading);margin-bottom:1rem}
+.section-dark h2{color:var(--white)}
+h2 em{font-style:italic;color:var(--primary);background:linear-gradient(135deg,var(--primary),var(--light));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.section-dark h2 em{background:linear-gradient(135deg,var(--light),#93E8F0);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+h3{font-family:var(--font-heading);font-size:1.25rem;font-weight:700;letter-spacing:-0.015em;line-height:1.25;color:var(--heading);margin-bottom:0.5rem}
+.section-desc{font-size:1.0625rem;line-height:1.7;color:var(--muted);max-width:44rem;margin-bottom:2.5rem}
+
+/* === NAV === */
+.nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,0.92);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--card-border)}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;max-width:72rem;margin:0 auto;padding:1rem 2.5rem}
+.nav-left{display:flex;align-items:center;gap:0.5rem}
+.nav-brand{font-weight:700;font-size:1.125rem;color:var(--heading);letter-spacing:-0.02em}
+.nav-separator{color:var(--muted);font-size:0.875rem}
+.nav-tag{font-size:0.75rem;font-weight:500;color:var(--muted);letter-spacing:0.02em}
+.nav-right{display:flex;align-items:center;gap:1.5rem}
+.nav-link{font-size:0.875rem;font-weight:500;color:var(--muted);transition:color var(--transition)}
+.nav-link:hover{color:var(--primary)}
+.btn-nav{display:inline-flex;align-items:center;gap:0.375rem;font-size:0.8125rem;font-weight:600;color:var(--white);background:var(--primary);padding:0.625rem 1.25rem;border-radius:var(--radius-pill);transition:all var(--transition)}
+.btn-nav:hover{background:var(--dark);transform:translateY(-1px)}
+
+/* === HERO === */
+.hero{padding-top:6rem;padding-bottom:5rem;text-align:center}
+.hero .badge{display:inline-flex;align-items:center;gap:0.375rem;font-size:0.75rem;font-weight:600;color:var(--primary);background:rgba(10,151,163,0.08);border:1px solid rgba(10,151,163,0.2);padding:0.375rem 1rem;border-radius:var(--radius-pill);margin-bottom:1.5rem;letter-spacing:0.02em}
+.hero-sub{font-size:0.8125rem;font-weight:500;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted);margin-bottom:1rem}
+.hero h1{font-family:var(--font-heading);font-size:clamp(2.25rem,5.5vw,3.75rem);font-weight:700;letter-spacing:-0.03em;line-height:1.1;color:var(--heading);max-width:52rem;margin-left:auto;margin-right:auto;margin-bottom:1.25rem}
+.hero h1 em{font-style:italic;background:linear-gradient(135deg,var(--primary),var(--light));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-desc{font-size:1.0625rem;line-height:1.7;color:var(--muted);max-width:38rem;margin-left:auto;margin-right:auto}
+
+/* === TOC === */
+.toc{padding-top:0;padding-bottom:3rem;border-bottom:1px solid var(--card-border)}
+.toc-grid{display:grid;grid-template-columns:1fr 1fr;gap:0}
+.toc-item{display:flex;align-items:center;gap:1rem;padding:1rem 0.75rem;border-bottom:1px solid var(--card-border);transition:all var(--transition);color:var(--body)}
+.toc-item:hover{color:var(--primary);transform:translateX(4px)}
+.toc-num{font-size:0.75rem;font-weight:600;color:var(--muted);min-width:1.5rem;font-variant-numeric:tabular-nums}
+.toc-label{font-size:0.9375rem;font-weight:500}
+
+/* === FOUNDATIONS === */
+.foundations-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem}
+.foundation-card{padding:1.75rem;border-left:3px solid var(--primary);background:var(--white);border-radius:0 var(--radius-md) var(--radius-md) 0;box-shadow:var(--card-shadow-subtle)}
+.section-soft .foundation-card{background:var(--white)}
+.foundation-card h3{font-size:1rem;margin-bottom:0.375rem}
+.foundation-card p{font-size:0.875rem;color:var(--muted);line-height:1.6}
+
+/* === COLORS === */
+.color-grid{display:flex;flex-wrap:wrap;gap:1.25rem;margin-bottom:2.5rem}
+.color-swatch{display:flex;flex-direction:column;align-items:center;gap:0.5rem;min-width:5.5rem}
+.swatch{width:5rem;height:5rem;border-radius:var(--radius-lg);border:1px solid rgba(255,255,255,0.1);box-shadow:var(--card-shadow-subtle)}
+.section-dark .swatch{border:1px solid rgba(255,255,255,0.12)}
+.color-name{font-size:0.8125rem;font-weight:600;color:var(--white)}
+.color-hex{font-size:0.75rem;color:rgba(255,255,255,0.5)}
+.color-var{font-size:0.6875rem;background:rgba(255,255,255,0.08);padding:0.125rem 0.375rem;border-radius:0.25rem;color:var(--light)}
+.gradient-grid{display:flex;flex-wrap:wrap;gap:1.5rem;margin-bottom:2.5rem}
+.gradient-swatch{display:flex;flex-direction:column;gap:0.5rem}
+.swatch-wide{width:12rem;height:3.5rem;border-radius:var(--radius-md)}
+.gradient-label{font-size:0.8125rem;font-weight:600;color:var(--white)}
+.gradient-values{font-size:0.75rem;color:rgba(255,255,255,0.5)}
+.pills-color-grid{display:flex;flex-wrap:wrap;gap:0.75rem}
+
+/* === TYPOGRAPHY === */
+.type-specimen{display:flex;flex-direction:column;gap:2.5rem}
+.type-sample{padding-bottom:2rem;border-bottom:1px solid var(--card-border)}
+.type-demo{margin-bottom:0.75rem;color:var(--heading)}
+.type-h1{font-family:var(--font-heading);font-size:3rem;font-weight:700;letter-spacing:-0.025em;line-height:1.15}
+.type-h2{font-family:var(--font-heading);font-size:2.5rem;font-weight:700;letter-spacing:-0.025em;line-height:1.15}
+.type-h3{font-family:var(--font-heading);font-size:1.25rem;font-weight:700;letter-spacing:-0.015em;line-height:1.25}
+.type-body-lg{font-size:1.0625rem;line-height:1.7}
+.type-body{font-size:1rem;line-height:1.65}
+.type-label{font-size:0.75rem;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted)}
+.type-mono{font-family:var(--font-mono);font-size:0.8125rem;line-height:1.5;color:var(--primary)}
+.type-meta{display:flex;flex-direction:column;gap:0.125rem}
+.type-meta strong{font-size:0.8125rem;font-weight:600;color:var(--heading)}
+.type-meta span{font-size:0.75rem;color:var(--muted)}
+
+/* === SPACING === */
+.spacing-scale{display:flex;flex-direction:column;gap:1rem;margin-bottom:3rem}
+.spacing-item{display:flex;align-items:center;gap:1.25rem}
+.spacing-bar{height:1.5rem;background:var(--primary);border-radius:0.25rem;min-width:0.5rem}
+.section-dark .spacing-bar{background:var(--light)}
+.spacing-value{font-size:0.8125rem;font-weight:600;color:var(--white);min-width:6rem}
+.spacing-usage{font-size:0.8125rem;color:rgba(255,255,255,0.5)}
+.radius-grid{display:flex;flex-wrap:wrap;gap:1.25rem;margin-top:1.5rem}
+.radius-sample{display:flex;align-items:center;justify-content:center;width:6rem;height:6rem;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);font-size:0.75rem;font-weight:600;color:var(--light);text-align:center;line-height:1.3}
+
+/* === LOGO === */
+.logo-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1.5rem;margin-bottom:3rem}
+.logo-variant{border-radius:var(--radius-xl);overflow:hidden}
+.logo-display{display:flex;align-items:center;justify-content:center;min-height:10rem;padding:2rem;gap:1rem}
+.logo-dark .logo-display{background:var(--footer-bg)}
+.logo-light .logo-display{background:var(--bg-soft)}
+.logo-compact .logo-display{background:var(--white);border:1px solid var(--card-border)}
+.logo-placeholder{display:flex;align-items:center;justify-content:center;width:3.5rem;height:3.5rem;border-radius:var(--radius-sm);font-size:1.125rem;font-weight:700;letter-spacing:-0.02em}
+.logo-dark .logo-placeholder{background:var(--primary);color:var(--white)}
+.logo-light .logo-placeholder{background:var(--primary);color:var(--white)}
+.logo-compact .logo-placeholder{background:var(--primary);color:var(--white);width:2.5rem;height:2.5rem;font-size:0.875rem}
+.logo-text{font-weight:700;font-size:1.375rem;letter-spacing:-0.02em}
+.logo-dark .logo-text{color:var(--white)}
+.logo-light .logo-text{color:var(--heading)}
+.logo-compact .logo-text{color:var(--heading);font-size:1rem}
+.logo-label{display:block;font-size:0.75rem;font-weight:500;color:var(--muted);padding:0.75rem 1.25rem;text-align:center}
+.logo-rules{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
+.rule-do,.rule-dont{padding:1.75rem;border-radius:var(--radius-lg)}
+.rule-do{background:rgba(10,151,163,0.06);border:1px solid rgba(10,151,163,0.15)}
+.rule-dont{background:rgba(239,68,68,0.04);border:1px solid rgba(239,68,68,0.12)}
+.rule-do h4,.rule-dont h4{font-size:0.9375rem;font-weight:700;margin-bottom:0.75rem}
+.rule-do h4{color:var(--primary)}
+.rule-dont h4{color:#EF4444}
+.rule-do li,.rule-dont li{font-size:0.875rem;color:var(--muted);line-height:1.6;padding-left:0.25rem;margin-bottom:0.25rem}
+
+/* === BUTTONS === */
+.btn-showcase{display:flex;flex-wrap:wrap;align-items:center;gap:1rem;margin-bottom:1rem}
+.btn-primary{display:inline-flex;align-items:center;gap:0.375rem;font-family:var(--font-body);font-size:0.9375rem;font-weight:600;color:var(--white);background:var(--primary);padding:0.875rem 2rem;border-radius:var(--radius-pill);transition:all var(--transition);border:none;cursor:pointer;position:relative;overflow:hidden}
+.btn-primary:hover{background:var(--dark);transform:translateY(-1px);box-shadow:var(--card-shadow-elevated)}
+.btn-secondary{display:inline-flex;align-items:center;gap:0.375rem;font-family:var(--font-body);font-size:0.9375rem;font-weight:600;color:var(--primary);background:var(--white);padding:0.875rem 2rem;border-radius:var(--radius-pill);border:1px solid var(--card-border);transition:all var(--transition);cursor:pointer}
+.btn-secondary:hover{border-color:var(--primary);color:var(--dark);transform:translateY(-1px)}
+.btn-ghost{display:inline-flex;align-items:center;gap:0.375rem;font-family:var(--font-body);font-size:0.875rem;font-weight:500;color:var(--muted);background:transparent;padding:0.75rem 1.5rem;border-radius:var(--radius-pill);border:1px solid rgba(255,255,255,0.15);transition:all var(--transition);cursor:pointer}
+.btn-ghost:hover{border-color:var(--primary);color:var(--primary)}
+.section-dark .btn-ghost{color:rgba(255,255,255,0.7)}
+.section-dark .btn-ghost:hover{color:var(--light);border-color:var(--light)}
+.btn-ghost-light{border-color:var(--card-border);color:var(--muted)}
+.btn-ghost-light:hover{border-color:var(--primary);color:var(--primary)}
+.btn-hint{font-size:0.75rem;color:rgba(255,255,255,0.35);margin-top:0.5rem}
+
+/* === PILLS === */
+.pills-showcase{display:flex;flex-wrap:wrap;gap:0.625rem;margin-bottom:2rem}
+.pill{display:inline-flex;align-items:center;font-size:0.75rem;font-weight:600;padding:0.375rem 0.875rem;border-radius:var(--radius-pill);letter-spacing:0.005em;text-transform:uppercase}
+.pill-teal{background:rgba(10,151,163,0.1);color:#0A97A3;border:1px solid rgba(10,151,163,0.22)}
+.pill-blue{background:rgba(31,135,252,0.1);color:#1F87FC;border:1px solid rgba(31,135,252,0.22)}
+.pill-green{background:rgba(22,163,74,0.1);color:#16A34A;border:1px solid rgba(22,163,74,0.22)}
+.pill-amber{background:rgba(217,119,6,0.1);color:#D97706;border:1px solid rgba(217,119,6,0.22)}
+.pill-rose{background:rgba(239,68,68,0.1);color:#EF4444;border:1px solid rgba(239,68,68,0.22)}
+.pill-grey{background:var(--warm-grey-bg);color:var(--warm-grey);border:1px solid rgba(120,113,108,0.2)}
+.pill-gold{background:var(--gold-bg);color:var(--gold);border:1px solid rgba(217,119,6,0.22)}
+.badges-showcase{display:flex;flex-wrap:wrap;gap:0.625rem;margin-top:1.5rem}
+.badge-sm{font-size:0.6875rem;padding:0.25rem 0.625rem;border-radius:var(--radius-xs)}
+
+/* === CARDS === */
+.cards-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem}
+.card{padding:2rem;border-radius:var(--radius-lg);transition:all var(--transition)}
+.card-white{background:var(--white);border:1px solid var(--card-border);box-shadow:var(--card-shadow-subtle)}
+.card-white:hover{border-color:rgba(10,151,163,0.3);transform:translateY(-2px);box-shadow:var(--card-shadow-elevated)}
+.card-elevated{background:var(--white);border:1px solid var(--card-border);box-shadow:var(--card-shadow-elevated)}
+.card-elevated:hover{border-color:rgba(10,151,163,0.3);transform:translateY(-2px)}
+.card-accent{background:var(--white);border:1px solid rgba(10,151,163,0.2);box-shadow:var(--card-shadow-elevated),0 0 0 1px rgba(10,151,163,0.05)}
+.card-accent:hover{border-color:rgba(10,151,163,0.4);transform:translateY(-2px)}
+.card-dark-bg{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);box-shadow:none}
+.card-dark-bg:hover{border-color:rgba(91,196,206,0.3);transform:translateY(-2px)}
+.card-dark-bg h3{color:var(--white)}
+.card-dark-bg p{color:rgba(255,255,255,0.6)}
+.card .pill{margin-bottom:0.875rem}
+.card h3{margin-bottom:0.375rem}
+.card p{font-size:0.875rem;color:var(--muted);line-height:1.6}
+
+/* === SECTIONS LIGHT CARDS === */
+.cards-light-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1.25rem;margin-bottom:2rem}
+
+/* === SHADOWS === */
+.shadows-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
+.shadow-sample{padding:2rem;border-radius:var(--radius-lg);min-height:7rem;display:flex;flex-direction:column;justify-content:center}
+.shadow-label{font-size:0.8125rem;font-weight:600;margin-bottom:0.25rem}
+.shadow-code{font-size:0.6875rem;color:var(--muted);font-family:var(--font-mono);word-break:break-all;line-height:1.5}
+
+/* === SLIDER LOGOS === */
+.slider-section{overflow:hidden;padding-top:3rem;padding-bottom:3rem}
+.slider-track{overflow:hidden;mask-image:linear-gradient(90deg,transparent,black 10%,black 90%,transparent);-webkit-mask-image:linear-gradient(90deg,transparent,black 10%,black 90%,transparent)}
+.slider-content{display:flex;align-items:center;gap:4.5rem;animation:slide 32s linear infinite;width:max-content}
+@keyframes slide{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.slider-logo{font-size:1.125rem;font-weight:700;letter-spacing:-0.02em;white-space:nowrap;opacity:0.4;transition:opacity var(--transition)}
+.slider-logo:hover{opacity:0.7}
+.section-dark .slider-logo{color:var(--white)}
+
+/* === ICON GRID === */
+.icon-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(6rem,1fr));gap:1rem}
+.icon-item{display:flex;flex-direction:column;align-items:center;gap:0.5rem;padding:1.25rem 0.5rem;border-radius:var(--radius-md);transition:all var(--transition)}
+.icon-item:hover{background:rgba(10,151,163,0.05)}
+.icon-wrap{display:flex;align-items:center;justify-content:center;width:2.75rem;height:2.75rem;border-radius:var(--radius-sm);background:var(--accent-bg);color:var(--primary)}
+.icon-wrap svg{width:1.25rem;height:1.25rem}
+.icon-name{font-size:0.6875rem;font-weight:500;color:var(--muted);text-align:center}
+
+/* === PATTERNS === */
+.patterns-list{display:flex;flex-direction:column;gap:0}
+.pattern-item{display:flex;align-items:center;gap:1.25rem;padding:1rem 0;border-bottom:1px solid rgba(255,255,255,0.06)}
+.pattern-num{font-size:0.75rem;font-weight:700;color:var(--light);min-width:2rem;font-variant-numeric:tabular-nums}
+.pattern-name{font-size:0.9375rem;font-weight:600;color:var(--white);flex:1}
+.pattern-tag{font-size:0.6875rem;font-weight:600;padding:0.25rem 0.625rem;border-radius:var(--radius-xs);text-transform:uppercase;letter-spacing:0.04em}
+.pattern-tag-white{background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.5)}
+.pattern-tag-soft{background:rgba(91,196,206,0.12);color:var(--light)}
+
+/* === MOTION === */
+.motion-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.motion-card{padding:1.5rem;border-radius:var(--radius-md);border:1px solid var(--card-border);background:var(--white)}
+.motion-card h4{font-size:0.875rem;font-weight:700;color:var(--heading);margin-bottom:0.375rem}
+.motion-effect{font-size:0.8125rem;color:var(--primary);margin-bottom:0.25rem}
+.motion-duration{font-size:0.75rem;color:var(--muted)}
+
+/* === COPY RULES === */
+.copy-rules{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-bottom:2.5rem}
+.section-dark .rule-do{background:rgba(91,196,206,0.08);border-color:rgba(91,196,206,0.2)}
+.section-dark .rule-do h4{color:var(--light)}
+.section-dark .rule-do li{color:rgba(255,255,255,0.65)}
+.section-dark .rule-dont{background:rgba(239,68,68,0.06);border-color:rgba(239,68,68,0.15)}
+.section-dark .rule-dont li{color:rgba(255,255,255,0.65)}
+.cta-ref{display:flex;align-items:center;gap:1.5rem;flex-wrap:wrap}
+.cta-ref-item{display:flex;flex-direction:column;gap:0.25rem}
+.cta-ref-item code{font-size:0.875rem;font-weight:600}
+.cta-ref-item span{font-size:0.6875rem;color:rgba(255,255,255,0.4)}
+
+/* === FOOTER === */
+.footer{padding:2.5rem 0;background:var(--footer-bg);border-top:1px solid rgba(255,255,255,0.06);text-align:center}
+.footer p{font-size:0.8125rem;color:rgba(255,255,255,0.35)}
+
+/* === SCROLL REVEAL === */
+.reveal{opacity:0;transform:translateY(1.75rem);transition:opacity 0.55s ease,transform 0.55s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+
+/* === RESPONSIVE === */
+@media(max-width:991px){
+  .container{padding-left:1.5rem;padding-right:1.5rem}
+  .nav-inner{padding-left:1.5rem;padding-right:1.5rem}
+  .nav-right .nav-link{display:none}
+  .section{padding-top:3.5rem;padding-bottom:3.5rem}
+  h2{font-size:2rem}
+  .hero h1{font-size:2.5rem}
+  .toc-grid{grid-template-columns:1fr}
+  .foundations-grid{grid-template-columns:1fr}
+  .logo-grid{grid-template-columns:1fr 1fr}
+  .cards-grid{grid-template-columns:1fr}
+  .cards-light-grid{grid-template-columns:1fr}
+  .shadows-grid{grid-template-columns:1fr}
+  .copy-rules{grid-template-columns:1fr}
+  .motion-grid{grid-template-columns:1fr}
+  .logo-rules{grid-template-columns:1fr}
+  .type-h1{font-size:2.25rem}
+  .type-h2{font-size:2rem}
+}
+@media(max-width:767px){
+  h2{font-size:1.75rem}
+  .hero{padding-top:4rem;padding-bottom:3.5rem}
+  .hero h1{font-size:2rem}
+  .logo-grid{grid-template-columns:1fr}
+}
+@media(max-width:479px){
+  .container{padding-left:1rem;padding-right:1rem}
+  .nav-inner{padding-left:1rem;padding-right:1rem}
+  .section{padding-top:3rem;padding-bottom:3rem}
+  h2{font-size:1.5rem}
+  .hero h1{font-size:1.75rem}
+  .color-grid{gap:0.875rem}
+  .swatch{width:4rem;height:4rem}
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- 01 · NAV                               -->
+<!-- ═══════════════════════════════════════ -->
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="nav-left">
+      <svg width="103" height="27" viewBox="0 0 206 53" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M2.232 52.4V41.97H3.212L7.132 47.654H6.586L10.492 41.97H11.472V52.4H10.352V43.482L10.716 43.622L6.88 49.18H6.824L3.002 43.622L3.352 43.482V52.4H2.232ZM21.4971 52.568C20.7971 52.568 20.1625 52.4 19.5931 52.064C19.0331 51.7187 18.5898 51.2474 18.2631 50.65C17.9365 50.0527 17.7731 49.376 17.7731 48.62C17.7731 47.864 17.9318 47.1967 18.2491 46.618C18.5665 46.03 18.9958 45.568 19.5371 45.232C20.0878 44.896 20.7038 44.728 21.3851 44.728C21.9265 44.728 22.4071 44.8307 22.8271 45.036C23.2565 45.232 23.6205 45.5027 23.9191 45.848C24.2178 46.184 24.4465 46.5667 24.6051 46.996C24.7638 47.416 24.8431 47.85 24.8431 48.298C24.8431 48.3914 24.8385 48.4987 24.8291 48.62C24.8198 48.732 24.8058 48.8487 24.7871 48.97H18.4451V47.99H24.1851L23.6811 48.41C23.7651 47.8967 23.7045 47.4394 23.4991 47.038C23.3031 46.6274 23.0185 46.3054 22.6451 46.072C22.2718 45.8294 21.8518 45.708 21.3851 45.708C20.9185 45.708 20.4845 45.8294 20.0831 46.072C19.6911 46.3147 19.3831 46.6554 19.1591 47.094C18.9351 47.5234 18.8465 48.0367 18.8931 48.634C18.8465 49.2314 18.9398 49.754 19.1731 50.202C19.4158 50.6407 19.7425 50.9814 20.1531 51.224C20.5731 51.4667 21.0211 51.588 21.4971 51.588C22.0478 51.588 22.5098 51.4574 22.8831 51.196C23.2565 50.9347 23.5598 50.608 23.7931 50.216L24.6891 50.692C24.5398 51.028 24.3111 51.3407 24.0031 51.63C23.6951 51.91 23.3265 52.1387 22.8971 52.316C22.4771 52.484 22.0105 52.568 21.4971 52.568ZM30.9944 52.4V44.896H32.0444V46.352L31.8064 46.296C31.9931 45.8107 32.2964 45.428 32.7164 45.148C33.1457 44.868 33.6404 44.728 34.2004 44.728C34.7324 44.728 35.2084 44.8494 35.6284 45.092C36.0577 45.3347 36.3937 45.6707 36.6364 46.1C36.8884 46.52 37.0144 46.996 37.0144 47.528V52.4H35.9644V47.934C35.9644 47.4767 35.8804 47.0894 35.7124 46.772C35.5537 46.4547 35.3251 46.212 35.0264 46.044C34.7371 45.8667 34.4011 45.778 34.0184 45.778C33.6357 45.778 33.2951 45.8667 32.9964 46.044C32.6977 46.212 32.4644 46.4594 32.2964 46.786C32.1284 47.1034 32.0444 47.486 32.0444 47.934V52.4H30.9944ZM45.9798 52.568C45.4571 52.568 44.9811 52.4467 44.5518 52.204C44.1225 51.952 43.7818 51.6067 43.5298 51.168C43.2871 50.72 43.1658 50.2067 43.1658 49.628V44.896H44.2158V49.502C44.2158 49.9034 44.2951 50.258 44.4538 50.566C44.6218 50.8647 44.8505 51.098 45.1398 51.266C45.4385 51.434 45.7791 51.518 46.1618 51.518C46.5445 51.518 46.8851 51.434 47.1838 51.266C47.4825 51.0887 47.7158 50.8414 47.8838 50.524C48.0518 50.1974 48.1358 49.81 48.1358 49.362V44.896H49.1858V52.4H48.1358V50.944L48.3738 51C48.1965 51.4854 47.8931 51.868 47.4638 52.148C47.0345 52.428 46.5398 52.568 45.9798 52.568ZM55.6452 52.4V44.896H56.6952V52.4H55.6452ZM55.6452 43.51V41.97H56.6952V43.51H55.6452ZM65.7484 52.568C65.0297 52.568 64.3997 52.386 63.8584 52.022C63.3171 51.658 62.9251 51.1634 62.6824 50.538L63.5644 50.118C63.7791 50.5754 64.0777 50.9394 64.4604 51.21C64.8524 51.4807 65.2817 51.616 65.7484 51.616C66.1964 51.616 66.5744 51.5087 66.8824 51.294C67.1904 51.07 67.3444 50.7807 67.3444 50.426C67.3444 50.1647 67.2697 49.9594 67.1204 49.81C66.9711 49.6514 66.7984 49.53 66.6024 49.446C66.4064 49.362 66.2337 49.3014 66.0844 49.264L65.0064 48.956C64.3157 48.76 63.8164 48.4847 63.5084 48.13C63.2004 47.7754 63.0464 47.3647 63.0464 46.898C63.0464 46.4594 63.1584 46.0767 63.3824 45.75C63.6064 45.4234 63.9097 45.1714 64.2924 44.994C64.6751 44.8167 65.0997 44.728 65.5664 44.728C66.2011 44.728 66.7751 44.896 67.2884 45.232C67.8111 45.5587 68.1797 46.016 68.3944 46.604L67.4984 47.024C67.3117 46.604 67.0411 46.2774 66.6864 46.044C66.3411 45.8014 65.9537 45.68 65.5244 45.68C65.1044 45.68 64.7684 45.7874 64.5164 46.002C64.2644 46.2167 64.1384 46.4874 64.1384 46.814C64.1384 47.066 64.2037 47.2667 64.3344 47.416C64.4651 47.5654 64.6144 47.6774 64.7824 47.752C64.9597 47.8267 65.1137 47.8827 65.2444 47.92L66.4904 48.284C67.0971 48.4614 67.5684 48.7367 67.9044 49.11C68.2497 49.4834 68.4224 49.922 68.4224 50.426C68.4224 50.8367 68.3057 51.2054 68.0724 51.532C67.8484 51.8587 67.5357 52.1154 67.1344 52.302C66.7331 52.4794 66.2711 52.568 65.7484 52.568ZM74.5675 52.4V44.896H75.6175V52.4H74.5675ZM74.5675 43.51V41.97H75.6175V43.51H74.5675ZM85.4827 52.568C84.7827 52.568 84.148 52.4 83.5787 52.064C83.0187 51.7187 82.5753 51.2474 82.2487 50.65C81.922 50.0527 81.7587 49.376 81.7587 48.62C81.7587 47.864 81.9173 47.1967 82.2347 46.618C82.552 46.03 82.9813 45.568 83.5227 45.232C84.0733 44.896 84.6893 44.728 85.3707 44.728C85.912 44.728 86.3927 44.8307 86.8127 45.036C87.242 45.232 87.606 45.5027 87.9047 45.848C88.2033 46.184 88.432 46.5667 88.5907 46.996C88.7493 47.416 88.8287 47.85 88.8287 48.298C88.8287 48.3914 88.824 48.4987 88.8147 48.62C88.8053 48.732 88.7913 48.8487 88.7727 48.97H82.4307V47.99H88.1707L87.6667 48.41C87.7507 47.8967 87.69 47.4394 87.4847 47.038C87.2887 46.6274 87.004 46.3054 86.6307 46.072C86.2573 45.8294 85.8373 45.708 85.3707 45.708C84.904 45.708 84.47 45.8294 84.0687 46.072C83.6767 46.3147 83.3687 46.6554 83.1447 47.094C82.9207 47.5234 82.832 48.0367 82.8787 48.634C82.832 49.2314 82.9253 49.754 83.1587 50.202C83.4013 50.6407 83.728 50.9814 84.1387 51.224C84.5587 51.4667 85.0067 51.588 85.4827 51.588C86.0333 51.588 86.4953 51.4574 86.8687 51.196C87.242 50.9347 87.5453 50.608 87.7787 50.216L88.6747 50.692C88.5253 51.028 88.2967 51.3407 87.9887 51.63C87.6807 51.91 87.312 52.1387 86.8827 52.316C86.4627 52.484 85.996 52.568 85.4827 52.568ZM94.98 52.4V44.896H96.03V46.128L95.89 45.946C96.0673 45.5914 96.3333 45.3114 96.688 45.106C97.052 44.9007 97.4906 44.798 98.004 44.798H98.48V45.848H97.822C97.2806 45.848 96.8466 46.016 96.52 46.352C96.1933 46.688 96.03 47.164 96.03 47.78V52.4H94.98ZM110.843 52.4V41.97H115.225C115.813 41.97 116.322 42.082 116.751 42.306C117.19 42.5207 117.526 42.824 117.759 43.216C118.002 43.608 118.123 44.0654 118.123 44.588C118.123 45.1294 117.988 45.61 117.717 46.03C117.456 46.4407 117.078 46.7534 116.583 46.968L116.569 46.632C116.98 46.7814 117.33 46.9914 117.619 47.262C117.918 47.5327 118.147 47.85 118.305 48.214C118.464 48.5687 118.543 48.9514 118.543 49.362C118.543 50.2954 118.245 51.0374 117.647 51.588C117.059 52.1294 116.257 52.4 115.239 52.4H110.843ZM111.963 51.35H115.239C115.902 51.35 116.429 51.1774 116.821 50.832C117.223 50.4774 117.423 49.992 117.423 49.376C117.423 48.7694 117.223 48.2887 116.821 47.934C116.429 47.57 115.902 47.388 115.239 47.388H111.963V51.35ZM111.963 46.38H115.141C115.701 46.38 116.149 46.2167 116.485 45.89C116.831 45.5634 117.003 45.1434 117.003 44.63C117.003 44.1074 116.831 43.7107 116.485 43.44C116.149 43.16 115.701 43.02 115.141 43.02H111.963V46.38ZM128.21 52.568C127.501 52.568 126.857 52.4 126.278 52.064C125.7 51.7187 125.238 51.252 124.892 50.664C124.556 50.0667 124.388 49.39 124.388 48.634C124.388 47.8874 124.556 47.22 124.892 46.632C125.228 46.044 125.681 45.582 126.25 45.246C126.829 44.9007 127.482 44.728 128.21 44.728C128.938 44.728 129.587 44.896 130.156 45.232C130.735 45.568 131.188 46.03 131.514 46.618C131.85 47.206 132.018 47.878 132.018 48.634C132.018 49.3994 131.846 50.0807 131.5 50.678C131.155 51.266 130.693 51.728 130.114 52.064C129.545 52.4 128.91 52.568 128.21 52.568ZM128.21 51.518C128.714 51.518 129.167 51.392 129.568 51.14C129.979 50.888 130.301 50.5427 130.534 50.104C130.777 49.6654 130.898 49.1754 130.898 48.634C130.898 48.0927 130.777 47.6074 130.534 47.178C130.301 46.7487 129.979 46.408 129.568 46.156C129.167 45.904 128.714 45.778 128.21 45.778C127.706 45.778 127.249 45.904 126.838 46.156C126.437 46.408 126.115 46.7487 125.872 47.178C125.63 47.6074 125.508 48.0927 125.508 48.634C125.508 49.1754 125.63 49.6654 125.872 50.104C126.115 50.5427 126.437 50.888 126.838 51.14C127.249 51.392 127.706 51.518 128.21 51.518ZM138.17 52.4V44.896H139.22V46.128L139.08 45.946C139.258 45.5914 139.524 45.3114 139.878 45.106C140.242 44.9007 140.681 44.798 141.194 44.798H141.67V45.848H141.012C140.471 45.848 140.037 46.016 139.71 46.352C139.384 46.688 139.22 47.164 139.22 47.78V52.4H138.17ZM150.589 52.568C149.889 52.568 149.259 52.4 148.699 52.064C148.139 51.7187 147.695 51.252 147.369 50.664C147.051 50.0667 146.893 49.3947 146.893 48.648C146.893 47.892 147.051 47.22 147.369 46.632C147.695 46.044 148.134 45.582 148.685 45.246C149.245 44.9007 149.879 44.728 150.589 44.728C151.233 44.728 151.807 44.868 152.311 45.148C152.815 45.428 153.211 45.806 153.501 46.282L153.333 46.576V41.802H154.383V52.4H153.333V50.72L153.501 50.874C153.239 51.4154 152.847 51.8354 152.325 52.134C151.811 52.4234 151.233 52.568 150.589 52.568ZM150.645 51.518C151.149 51.518 151.601 51.392 152.003 51.14C152.413 50.888 152.735 50.5474 152.969 50.118C153.211 49.6794 153.333 49.1894 153.333 48.648C153.333 48.1067 153.211 47.6214 152.969 47.192C152.735 46.7534 152.413 46.408 152.003 46.156C151.601 45.904 151.149 45.778 150.645 45.778C150.15 45.778 149.702 45.904 149.301 46.156C148.899 46.408 148.582 46.7487 148.349 47.178C148.125 47.6074 148.013 48.0974 148.013 48.648C148.013 49.1894 148.125 49.6794 148.349 50.118C148.582 50.5474 148.895 50.888 149.287 51.14C149.688 51.392 150.141 51.518 150.645 51.518ZM164.255 52.568C163.555 52.568 162.92 52.4 162.351 52.064C161.791 51.7187 161.347 51.2474 161.021 50.65C160.694 50.0527 160.531 49.376 160.531 48.62C160.531 47.864 160.689 47.1967 161.007 46.618C161.324 46.03 161.753 45.568 162.295 45.232C162.845 44.896 163.461 44.728 164.143 44.728C164.684 44.728 165.165 44.8307 165.585 45.036C166.014 45.232 166.378 45.5027 166.677 45.848C166.975 46.184 167.204 46.5667 167.363 46.996C167.521 47.416 167.601 47.85 167.601 48.298C167.601 48.3914 167.596 48.4987 167.587 48.62C167.577 48.732 167.563 48.8487 167.545 48.97H161.203V47.99H166.943L166.439 48.41C166.523 47.8967 166.462 47.4394 166.257 47.038C166.061 46.6274 165.776 46.3054 165.403 46.072C165.029 45.8294 164.609 45.708 164.143 45.708C163.676 45.708 163.242 45.8294 162.841 46.072C162.449 46.3147 162.141 46.6554 161.917 47.094C161.693 47.5234 161.604 48.0367 161.651 48.634C161.604 49.2314 161.697 49.754 161.931 50.202C162.173 50.6407 162.5 50.9814 162.911 51.224C163.331 51.4667 163.779 51.588 164.255 51.588C164.805 51.588 165.267 51.4574 165.641 51.196C166.014 50.9347 166.317 50.608 166.551 50.216L167.447 50.692C167.297 51.028 167.069 51.3407 166.761 51.63C166.453 51.91 166.084 52.1387 165.655 52.316C165.235 52.484 164.768 52.568 164.255 52.568ZM175.785 52.568C175.309 52.568 174.884 52.4794 174.511 52.302C174.138 52.1154 173.844 51.8634 173.629 51.546C173.414 51.2287 173.307 50.8647 173.307 50.454C173.307 50.062 173.391 49.7074 173.559 49.39C173.727 49.0634 173.988 48.788 174.343 48.564C174.698 48.34 175.15 48.1814 175.701 48.088L178.641 47.598V48.55L175.953 48.998C175.412 49.0914 175.02 49.264 174.777 49.516C174.544 49.768 174.427 50.0667 174.427 50.412C174.427 50.748 174.558 51.0327 174.819 51.266C175.09 51.4994 175.435 51.616 175.855 51.616C176.368 51.616 176.816 51.5087 177.199 51.294C177.582 51.07 177.88 50.7714 178.095 50.398C178.31 50.0247 178.417 49.6094 178.417 49.152V47.248C178.417 46.8 178.254 46.436 177.927 46.156C177.6 45.876 177.176 45.736 176.653 45.736C176.196 45.736 175.794 45.8527 175.449 46.086C175.104 46.31 174.847 46.604 174.679 46.968L173.727 46.45C173.867 46.1327 174.086 45.8434 174.385 45.582C174.693 45.3207 175.043 45.1154 175.435 44.966C175.827 44.8074 176.233 44.728 176.653 44.728C177.204 44.728 177.689 44.8354 178.109 45.05C178.538 45.2647 178.87 45.5634 179.103 45.946C179.346 46.3194 179.467 46.7534 179.467 47.248V52.4H178.417V50.902L178.571 51.056C178.44 51.336 178.235 51.5927 177.955 51.826C177.684 52.05 177.362 52.232 176.989 52.372C176.625 52.5027 176.224 52.568 175.785 52.568ZM188.587 52.568C188.064 52.568 187.588 52.4467 187.159 52.204C186.729 51.952 186.389 51.6067 186.137 51.168C185.894 50.72 185.773 50.2067 185.773 49.628V44.896H186.823V49.502C186.823 49.9034 186.902 50.258 187.061 50.566C187.229 50.8647 187.457 51.098 187.747 51.266C188.045 51.434 188.386 51.518 188.769 51.518C189.151 51.518 189.492 51.434 189.791 51.266C190.089 51.0887 190.323 50.8414 190.491 50.524C190.659 50.1974 190.743 49.81 190.743 49.362V44.896H191.793V52.4H190.743V50.944L190.981 51C190.803 51.4854 190.5 51.868 190.071 52.148C189.641 52.428 189.147 52.568 188.587 52.568ZM197.328 52.4L199.96 48.648L197.342 44.896H198.63L200.954 48.27H200.24L202.55 44.896H203.838L201.22 48.648L203.838 52.4H202.55L200.24 49.026H200.954L198.63 52.4H197.328Z" fill="#404444"/><path d="M26.0587 30.2934L25.3607 31.5711L25.2101 31.8459L24.6353 32.89L22.1581 37.4101C21.8296 38.0009 21.2137 38.3718 20.5431 38.3718H7.62939e-06L2.98362 32.89L5.46083 28.3562L5.98091 27.3945L8.97821 21.9127L10.9217 18.3681L11.9892 16.4309L13.7821 13.1611L20.8442 23.0255L18.4491 27.3945L16.9163 30.1972L19.8588 30.2247H19.9136L24.1016 30.2522H25.3744H26.0724L26.0587 30.2934Z" fill="#101111"/><path d="M43.9325 33.0281L43.8367 32.8907L39.9087 27.4089L38.4716 25.4168L35.9807 21.9272L33.0108 17.7918L32.0528 16.4454L28.1248 10.9636L27.8784 10.6338L27.55 10.1805L24.3474 5.70161L24.1968 5.48179L22.1028 2.55542L20.83 0.769374C20.6521 0.522075 20.4331 0.343471 20.1731 0.206082C19.913 0.0686941 19.6256 0 19.3382 0H6.80157L10.7295 5.48179L11.1538 6.0863L11.4412 6.48472L12.1392 7.46018L14.9723 11.417L22.0344 21.2814L22.4997 21.9409L27.5363 28.9614L33.3119 37.0261L33.7362 37.6306C34.0783 38.1115 34.6395 38.4 35.228 38.4H47.7372L43.9051 33.0556L43.9325 33.0281Z" fill="#101111"/><path d="M192.855 10.3024C193.622 10.3024 194.251 10.9756 194.251 11.7999V13.4348C194.251 14.2592 193.622 14.9324 192.855 14.9324H173.927V23.5329C173.927 23.9863 174.297 24.3435 174.735 24.3435H192.855C193.622 24.3435 194.251 25.0167 194.251 25.841H205.077C205.022 23.3955 204.037 21.1973 202.477 19.6311C204.092 18.0099 205.091 15.7292 205.091 13.1875V9.72536C205.091 4.86182 201.368 0.891296 196.824 0.891296H170.684V9.4918C170.684 9.94518 171.053 10.3024 171.491 10.3024H192.855Z" fill="#101111"/><path d="M194.196 27.833C194.046 28.4787 193.498 28.9596 192.855 28.9596H170.683V37.5601C170.683 38.0135 171.053 38.3707 171.491 38.3707H196.824C201.368 38.3707 205.091 34.3864 205.091 29.5366V27.833H194.21H194.196Z" fill="#101111"/><path d="M152.969 10.3024C153.736 10.3024 154.365 10.9756 154.365 11.7999V13.4348C154.365 14.2592 153.736 14.9324 152.969 14.9324H134.041V23.5329C134.041 23.9863 134.411 24.3435 134.849 24.3435H152.969C153.736 24.3435 154.365 25.0167 154.365 25.841H165.191C165.136 23.3955 164.151 21.1973 162.591 19.6311C164.206 18.0099 165.205 15.7292 165.205 13.1875V9.72536C165.205 4.86182 161.482 0.891296 156.938 0.891296H130.798V9.4918C130.798 9.94518 131.167 10.3024 131.605 10.3024H152.969Z" fill="#101111"/><path d="M154.324 27.833C154.174 28.4787 153.626 28.9596 152.983 28.9596H130.811V37.5601C130.811 38.0135 131.181 38.3707 131.619 38.3707H156.952C161.496 38.3707 165.219 34.3864 165.219 29.5366V27.833H154.338H154.324Z" fill="#101111"/><path d="M125.305 25.8446V1.69176C125.305 1.23837 124.936 0.881165 124.498 0.881165H114.479V25.8446H125.319H125.305Z" fill="#101111"/><path d="M114.425 27.8367C114.274 28.4825 113.727 28.9633 113.083 28.9633H100.985C100.341 28.9633 99.7939 28.4825 99.6434 27.8367H88.7628V29.5403C88.7628 34.4039 92.4855 38.3744 97.0293 38.3744H117.066C121.61 38.3744 125.333 34.3901 125.333 29.5403V27.8367H114.452H114.425Z" fill="#101111"/><path d="M99.5747 25.8446V1.69176C99.5747 1.23837 99.2052 0.881165 98.7672 0.881165H88.7489V25.8446H99.5884H99.5747Z" fill="#101111"/><path d="M64.0415 25.8446V1.69176C64.0415 1.23837 63.672 0.881165 63.234 0.881165H53.2157V25.0203C53.2157 25.4737 53.5852 25.8309 54.0232 25.8309H64.0415V25.8446Z" fill="#101111"/><path d="M64.0416 27.8367H53.202V37.5638C53.202 38.0172 53.5716 38.3744 54.0095 38.3744H83.2845V29.7739C83.2845 29.3205 82.915 28.9633 82.477 28.9633H64.0416V27.8367Z" fill="#101111"/></svg>
+      <span class="nav-separator">·</span>
+      <span class="nav-tag">Design System</span>
+    </div>
+    <div class="nav-right">
+      <a href="#color" class="nav-link">Couleurs</a>
+      <a href="#type" class="nav-link">Typo</a>
+      <a href="#buttons" class="nav-link">Boutons</a>
+      <a href="#cards" class="nav-link">Cards</a>
+      <a href="#copy" class="nav-link">Copy</a>
+      <a href="#" class="btn-nav"><span>Consultation offerte →</span></a>
+    </div>
+  </div>
+</nav>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- 02 · HERO                              -->
+<!-- ═══════════════════════════════════════ -->
+<section class="hero">
+  <div class="container">
+    <span class="badge">Design System v1.0 · Avril 2026</span>
+    <p class="hero-sub">Design System pour Webflow, Claude & équipe créa</p>
+    <h1>La DA <em>Alu33</em> prête pour produire.</h1>
+    <p class="hero-desc">
+      Tokens, composants, patterns. Tout ce qu'il faut pour que Claude, Convertex et votre équipe génèrent des pages Alu33 fidèles à la marque. Source unique de vérité.
+    </p>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- 03 · SOMMAIRE                          -->
+<!-- ═══════════════════════════════════════ -->
+<section class="toc" id="toc">
+  <div class="container">
+    <div class="toc-grid">
+      <a href="#foundations" class="toc-item"><span class="toc-num">01</span><span class="toc-label">Foundations</span></a>
+      <a href="#color" class="toc-item"><span class="toc-num">02</span><span class="toc-label">Couleurs</span></a>
+      <a href="#type" class="toc-item"><span class="toc-num">03</span><span class="toc-label">Typographie</span></a>
+      <a href="#spacing" class="toc-item"><span class="toc-num">04</span><span class="toc-label">Spacing & Radius</span></a>
+      <a href="#shadows" class="toc-item"><span class="toc-num">05</span><span class="toc-label">Shadows</span></a>
+      <a href="#logo" class="toc-item"><span class="toc-num">06</span><span class="toc-label">Logo</span></a>
+      <a href="#buttons" class="toc-item"><span class="toc-num">07</span><span class="toc-label">Boutons</span></a>
+      <a href="#pills" class="toc-item"><span class="toc-num">08</span><span class="toc-label">Pills & Badges</span></a>
+      <a href="#cards" class="toc-item"><span class="toc-num">09</span><span class="toc-label">Cards</span></a>
+      <a href="#light" class="toc-item"><span class="toc-num">10</span><span class="toc-label">Sections light & soft</span></a>
+      <a href="#icono" class="toc-item"><span class="toc-num">11</span><span class="toc-label">Iconographie</span></a>
+      <a href="#patterns" class="toc-item"><span class="toc-num">12</span><span class="toc-label">Patterns</span></a>
+      <a href="#motion" class="toc-item"><span class="toc-num">13</span><span class="toc-label">Motion</span></a>
+      <a href="#copy" class="toc-item"><span class="toc-num">14</span><span class="toc-label">Copy & Tone</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- 04 · FOUNDATIONS                        -->
+<!-- ═══════════════════════════════════════ -->
+<section class="section section-soft" id="foundations">
+  <div class="container">
+    <span class="section-label reveal">01 · Foundations</span>
+    <h2 class="reveal">Principes <em>de design</em>.</h2>
+    <p class="section-desc reveal">Quatre règles qui guident toutes les décisions visuelles Alu33.</p>
+    <div class="foundations-grid">
+      <div class="foundation-card reveal">
+        <h3>Light-first, toujours</h3>
+        <p>Fond blanc #FFFFFF ou beige warm #FAF9F7. Le dark footer sert de fermeture, jamais de base. Alternance blanc / beige pour rythmer le scroll.</p>
+      </div>
+      <div class="foundation-card reveal">
+        <h3>Un seul accent : teal</h3>
+        <p>#0A97A3 partout — CTAs, pills, accent heading, icônes. Gradient vers #07747E (dark) et #5BC4CE (light) pour la profondeur.</p>
+      </div>
+      <div class="foundation-card reveal">
+        <h3>Une seule famille typo</h3>
+        <p>Plus Jakarta Sans en 4 poids (400–700). Letter-spacing négatif sur les titres, tracking normal sur le body. Zéro exception.</p>
+      </div>
+      <div class="foundation-card reveal">
+        <h3>Stripe polish, artisan soul</h3>
+        <p>Shadows layered 3+, glassmorphism discret, transitions 200ms ease-out. Le niveau de craft de Stripe appliqué à un artisan local RGE.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- 05 · COULEURS                          -->
+<!-- ═══════════════════════════════════════ -->
+<section class="section section-dark" id="color">
+  <div class="container">
+    <span class="section-label reveal">02 · Couleurs</span>
+    <h2 class="reveal">Palette <em>complète</em>.</h2>
+    <p class="section-desc reveal">Un set restreint, nommé par usage. Chaque token a un rôle.</p>
+
+    <h3 class="reveal" style="color:var(--white);margin-bottom:1.25rem">Teal Brand</h3>
+    <div class="color-grid reveal">
+      <div class="color-swatch"><div class="swatch" style="background:#0A97A3"></div><span class="color-name">Primary</span><span class="color-hex">#0A97A3</span><code class="color-var">--primary</code></div>
+      <div class="color-swatch"><div class="swatch" style="background:#07747E"></div><span class="color-name">Dark</span><span class="color-hex">#07747E</span><code class="color-var">--dark</code></div>
+      <div class="color-swatch"><div class="swatch" style="background:#5BC4CE"></div><span class="color-name">Light</span><span class="color-hex">#5BC4CE</span><code class="color-var">--light</code></div>
+      <div class="color-swatch"><div class="swatch" style="background:#055A75"></div><span class="color-name">Secondary</span><span class="color-hex">#055A75</span><code class="color-var">--secondary</code></div>
+      <div class="color-swatch"><div class="swatch" style="background:#E2FCF6;border-color:rgba(10,151,163,0.2)"></div><span class="color-name">Accent BG</span><span class="color-hex">#E2FCF6</span><code class="color-var">--accent-bg</code></div>
+    </div>
+
+    <h3 class="reveal" style="color:var(--white);margin-bottom:1.25rem;margin-top:2.5rem">Neutrals</h3>
+    <div class="color-grid reveal">
+      <div class="color-swatch"><div class="swatch" style="background:#050709"></div><span class="color-name">Heading</span><span class="color-hex">#050709</span><code class="color-var">--heading</code></div>
+      <div class="color-swatch"><div class="swatch" style="background:#37393A"></div><span class="color-name">Body</span><span class="color-hex">#37393A</span><code class="color-var">--body</code></div>
+      <div class="color-swatch"><div class="swatch" style="background:#6B7280"></div><span class="color-name">Muted</span><span class="color-hex">#6B7280</span><code class="color-var">--muted</code></div>
+      <div class="color-swatch"><div class="swatch" style="background:#FAF9F7;border-color:rgba(0,0,0,0.08)"></div><span class="color-name">BG Soft</span><span class="color-hex">#FAF9F7</span><code class="color-var">--bg-soft</code></div>
+      <div class="color-swatch"><div class="swatch" style="background:#FFFFFF;border-color:rgba(0,0,0,0.08)"></div><span class="color-name">White</span><span class="color-hex">#FFFFFF</span><code class="color-var">--white</code></div>
+      <div class="color-swatch"><div class="swatch" style="background:#1E2022"></div><span class="color-name">Footer</span><span class="color-hex">#1E2022</span><code class="color-var">--footer-bg</code></div>
+    </div>
+
+    <h3 class="reveal" style="color:var(--white);margin-bottom:1.25rem;margin-top:2.5rem">Utility & Brand</h3>
+    <div class="color-grid reveal">
+      <div class="color-swatch"><div class="swatch" style="background:#1F87FC"></div><span class="color-name">Google Blue</span><span class="color-hex">#1F87FC</span><code class="color-var">--google-blue</code></div>
+      <div class="color-swatch"><div class="swatch" style="background:#FBBC05"></div><span class="color-name">Google Yellow</span><span class="color-hex">#FBBC05</span><code class="color-var">--google-yellow</code></div>
+      <div class="color-swatch"><div class="swatch" style="background:#D97706"></div><span class="color-name">Gold</span><span class="color-hex">#D97706</span><code class="color-var">--gold</code></div>
+      <div class="color-swatch"><div class="swatch" style="background:#FEF3C7;border-color:rgba(217,119,6,0.2)"></div><span class="color-name">Gold BG</span><span class="color-hex">#FEF3C7</span><code class="color-var">--gold-bg</code></div>
+      <div class="color-swatch"><div class="swatch" style="background:#78716C"></div><span class="color-name">Warm Grey</span><span class="color-hex">#78716C</span><code class="color-var">--warm-grey</code></div>
+      <div class="color-swatch"><div class="swatch" style="background:#F4F4F3;border-color:rgba(0,0,0,0.06)"></div><span class="color-name">Warm Grey BG</span><span class="color-hex">#F4F4F3</span><code class="color-var">--warm-grey-bg</code></div>
+    </div>
+
+    <h3 class="reveal" style="color:var(--white);margin-bottom:1.25rem;margin-top:2.5rem">Gradients</h3>
+    <div class="gradient-grid reveal">
+      <div class="gradient-swatch">
+        <div class="swatch-wide" style="background:linear-gradient(135deg,#07747E,#0A97A3,#5BC4CE)"></div>
+        <span class="gradient-label">Teal gradient</span>
+        <span class="gradient-values">#07747E → #0A97A3 → #5BC4CE</span>
+      </div>
+      <div class="gradient-swatch">
+        <div class="swatch-wide" style="background:linear-gradient(135deg,#055A75,#0A97A3)"></div>
+        <span class="gradient-label">Stats / Deep</span>
+        <span class="gradient-values">#055A75 → #0A97A3</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- 06 · TYPOGRAPHIE                       -->
+<!-- ═══════════════════════════════════════ -->
+<section class="section" id="type">
+  <div class="container">
+    <span class="section-label reveal">03 · Typographie</span>
+    <h2 class="reveal">Une famille. <em>Quatre poids</em>.</h2>
+    <p class="section-desc reveal">Plus Jakarta Sans en 400, 500, 600, 700. Letter-spacing négatif sur tous les titres. Accent teal sur un mot-clé stratégique.</p>
+
+    <div class="type-specimen">
+      <div class="type-sample reveal">
+        <p class="type-demo type-h1">Menuisier <span style="color:var(--primary)">aluminium</span> à Bordeaux.</p>
+        <div class="type-meta"><strong>H1 / Hero</strong><span>Plus Jakarta Sans 700 · 3rem · letter-spacing: -0.025em · line-height: 1.15</span></div>
+      </div>
+      <div class="type-sample reveal">
+        <p class="type-demo type-h2">Des fenêtres qui changent <span style="color:var(--primary)">tout</span>.</p>
+        <div class="type-meta"><strong>H2 / Section</strong><span>Plus Jakarta Sans 700 · 2.5rem · letter-spacing: -0.02em · line-height: 1.15</span></div>
+      </div>
+      <div class="type-sample reveal">
+        <p class="type-demo type-h3">Aluminium sur mesure, posé par nos artisans.</p>
+        <div class="type-meta"><strong>H3 / Card</strong><span>Plus Jakarta Sans 700 · 1.25rem · letter-spacing: -0.015em · line-height: 1.25</span></div>
+      </div>
+      <div class="type-sample reveal">
+        <p class="type-demo type-body-lg">Alu33 conçoit et installe vos menuiseries aluminium sur mesure en Gironde. Du devis gratuit au SAV, un seul interlocuteur pour votre projet.</p>
+        <div class="type-meta"><strong>Body Large</strong><span>Plus Jakarta Sans 400 · 1.0625rem · line-height: 1.7</span></div>
+      </div>
+      <div class="type-sample reveal">
+        <p class="type-demo type-body">Entreprise certifiée RGE, Alu33 garantit une pose conforme aux normes en vigueur avec des matériaux premium sélectionnés auprès de fabricants français.</p>
+        <div class="type-meta"><strong>Body</strong><span>Plus Jakarta Sans 400 · 1rem · line-height: 1.65</span></div>
+      </div>
+      <div class="type-sample reveal">
+        <p class="type-demo type-label">Certifié RGE · Artisan de confiance</p>
+        <div class="type-meta"><strong>Label / Pill</strong><span>Plus Jakarta Sans 600 · 0.75rem · uppercase · letter-spacing: 0.08em</span></div>
+      </div>
+      <div class="type-sample reveal">
+        <p class="type-demo type-mono">const accent = '#0A97A3';</p>
+        <div class="type-meta"><strong>Mono</strong><span>SF Mono / Menlo · 0.8125rem · line-height: 1.5</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- 07 · SPACING & RADIUS                  -->
+<!-- ═══════════════════════════════════════ -->
+<section class="section section-dark" id="spacing">
+  <div class="container">
+    <span class="section-label reveal">04 · Spacing & Radius</span>
+    <h2 class="reveal">Rythme <em>visuel</em>.</h2>
+    <p class="section-desc reveal">Échelle en rem. Sections larges (5rem desktop, 3rem mobile), radius généreux.</p>
+
+    <div class="spacing-scale reveal">
+      <div class="spacing-item"><div class="spacing-bar" style="width:0.5rem"></div><span class="spacing-value">0.125rem</span><span class="spacing-usage">Micro gaps</span></div>
+      <div class="spacing-item"><div class="spacing-bar" style="width:1rem"></div><span class="spacing-value">0.25rem</span><span class="spacing-usage">Icon padding, pill gap</span></div>
+      <div class="spacing-item"><div class="spacing-bar" style="width:2rem"></div><span class="spacing-value">0.5rem</span><span class="spacing-usage">Inline gaps</span></div>
+      <div class="spacing-item"><div class="spacing-bar" style="width:4rem"></div><span class="spacing-value">1rem</span><span class="spacing-usage">Card gaps, grid gaps</span></div>
+      <div class="spacing-item"><div class="spacing-bar" style="width:6rem"></div><span class="spacing-value">1.5rem</span><span class="spacing-usage">Section sub-gaps</span></div>
+      <div class="spacing-item"><div class="spacing-bar" style="width:8rem"></div><span class="spacing-value">2rem</span><span class="spacing-usage">Card padding</span></div>
+      <div class="spacing-item"><div class="spacing-bar" style="width:10rem"></div><span class="spacing-value">2.5rem</span><span class="spacing-usage">Card padding large, nav padding</span></div>
+      <div class="spacing-item"><div class="spacing-bar" style="width:14rem"></div><span class="spacing-value">3.5rem</span><span class="spacing-usage">Section padding tablet</span></div>
+      <div class="spacing-item"><div class="spacing-bar" style="width:18rem"></div><span class="spacing-value">5rem</span><span class="spacing-usage">Section padding desktop</span></div>
+    </div>
+
+    <h3 class="reveal" style="color:var(--white);margin-bottom:1.25rem">Radius</h3>
+    <div class="radius-grid reveal">
+      <div class="radius-sample" style="border-radius:0.375rem">0.375rem<br>badges</div>
+      <div class="radius-sample" style="border-radius:0.5rem">0.5rem<br>icons</div>
+      <div class="radius-sample" style="border-radius:0.875rem">0.875rem<br>cards sm</div>
+      <div class="radius-sample" style="border-radius:1.25rem">1.25rem<br>cards md</div>
+      <div class="radius-sample" style="border-radius:1.5rem">1.5rem<br>cards lg</div>
+      <div class="radius-sample" style="border-radius:1.75rem">1.75rem<br>monolith</div>
+      <div class="radius-sample" style="border-radius:3rem">3rem<br>pills</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- 08 · SHADOWS                           -->
+<!-- ═══════════════════════════════════════ -->
+<section class="section" id="shadows">
+  <div class="container">
+    <span class="section-label reveal">05 · Shadows</span>
+    <h2 class="reveal">Profondeur <em>layered</em>.</h2>
+    <p class="section-desc reveal">Ombres multi-couches pour un polish niveau Stripe. Halo teal sur les visuels hero.</p>
+
+    <div class="shadows-grid reveal">
+      <div class="shadow-sample" style="background:var(--white);box-shadow:0 1px 2px rgba(5,7,9,0.03)">
+        <span class="shadow-label">Subtle</span>
+        <span class="shadow-code">0 1px 2px rgba(5,7,9, 0.03)</span>
+      </div>
+      <div class="shadow-sample" style="background:var(--white);box-shadow:0 1px 2px rgba(5,7,9,0.04),0 4px 16px -4px rgba(5,7,9,0.05),0 16px 40px -12px rgba(5,7,9,0.04)">
+        <span class="shadow-label">Elevated</span>
+        <span class="shadow-code">3 layers — card hover, monolith</span>
+      </div>
+      <div class="shadow-sample" style="background:var(--white);box-shadow:0 1px 2px rgba(5,7,9,0.04),0 8px 24px -4px rgba(5,7,9,0.1),0 20px 40px -12px rgba(10,151,163,0.06)">
+        <span class="shadow-label">Hero halo teal</span>
+        <span class="shadow-code">3 layers + teal glow — hero images</span>
+      </div>
+      <div class="shadow-sample" style="background:var(--white);box-shadow:0 1px 2px rgba(5,7,9,0.04),0 0 0 4px rgba(10,151,163,0.04)">
+        <span class="shadow-label">Pill glow</span>
+        <span class="shadow-code">Subtle ring — pills hover</span>
+      </div>
+      <div class="shadow-sample" style="background:rgba(255,255,255,0.88);backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,0.5);box-shadow:0 4px 16px rgba(5,7,9,0.1),0 1px 2px rgba(5,7,9,0.06)">
+        <span class="shadow-label">Glassmorphism</span>
+        <span class="shadow-code">backdrop-filter blur(16px) — floating cards</span>
+      </div>
+      <div class="shadow-sample" style="background:var(--bg-soft);border:1px solid var(--card-border)">
+        <span class="shadow-label">Flat card</span>
+        <span class="shadow-code">border only — certifications grid</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- 09 · LOGO                              -->
+<!-- ═══════════════════════════════════════ -->
+<section class="section section-soft" id="logo">
+  <div class="container">
+    <span class="section-label reveal">06 · Logo</span>
+    <h2 class="reveal">Logo <em>Alu33</em>.</h2>
+    <p class="section-desc reveal">Logo SVG inline. ViewBox 0 0 206 53. Taille mini nav : 2.125rem.</p>
+
+    <div class="logo-grid reveal">
+      <div class="logo-variant logo-dark">
+        <div class="logo-display">
+          <svg width="165" height="42" viewBox="0 0 206 53" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M2.232 52.4V41.97H3.212L7.132 47.654H6.586L10.492 41.97H11.472V52.4H10.352V43.482L10.716 43.622L6.88 49.18H6.824L3.002 43.622L3.352 43.482V52.4H2.232ZM21.4971 52.568C20.7971 52.568 20.1625 52.4 19.5931 52.064C19.0331 51.7187 18.5898 51.2474 18.2631 50.65C17.9365 50.0527 17.7731 49.376 17.7731 48.62C17.7731 47.864 17.9318 47.1967 18.2491 46.618C18.5665 46.03 18.9958 45.568 19.5371 45.232C20.0878 44.896 20.7038 44.728 21.3851 44.728C21.9265 44.728 22.4071 44.8307 22.8271 45.036C23.2565 45.232 23.6205 45.5027 23.9191 45.848C24.2178 46.184 24.4465 46.5667 24.6051 46.996C24.7638 47.416 24.8431 47.85 24.8431 48.298C24.8431 48.3914 24.8385 48.4987 24.8291 48.62C24.8198 48.732 24.8058 48.8487 24.7871 48.97H18.4451V47.99H24.1851L23.6811 48.41C23.7651 47.8967 23.7045 47.4394 23.4991 47.038C23.3031 46.6274 23.0185 46.3054 22.6451 46.072C22.2718 45.8294 21.8518 45.708 21.3851 45.708C20.9185 45.708 20.4845 45.8294 20.0831 46.072C19.6911 46.3147 19.3831 46.6554 19.1591 47.094C18.9351 47.5234 18.8465 48.0367 18.8931 48.634C18.8465 49.2314 18.9398 49.754 19.1731 50.202C19.4158 50.6407 19.7425 50.9814 20.1531 51.224C20.5731 51.4667 21.0211 51.588 21.4971 51.588C22.0478 51.588 22.5098 51.4574 22.8831 51.196C23.2565 50.9347 23.5598 50.608 23.7931 50.216L24.6891 50.692C24.5398 51.028 24.3111 51.3407 24.0031 51.63C23.6951 51.91 23.3265 52.1387 22.8971 52.316C22.4771 52.484 22.0105 52.568 21.4971 52.568ZM30.9944 52.4V44.896H32.0444V46.352L31.8064 46.296C31.9931 45.8107 32.2964 45.428 32.7164 45.148C33.1457 44.868 33.6404 44.728 34.2004 44.728C34.7324 44.728 35.2084 44.8494 35.6284 45.092C36.0577 45.3347 36.3937 45.6707 36.6364 46.1C36.8884 46.52 37.0144 46.996 37.0144 47.528V52.4H35.9644V47.934C35.9644 47.4767 35.8804 47.0894 35.7124 46.772C35.5537 46.4547 35.3251 46.212 35.0264 46.044C34.7371 45.8667 34.4011 45.778 34.0184 45.778C33.6357 45.778 33.2951 45.8667 32.9964 46.044C32.6977 46.212 32.4644 46.4594 32.2964 46.786C32.1284 47.1034 32.0444 47.486 32.0444 47.934V52.4H30.9944ZM45.9798 52.568C45.4571 52.568 44.9811 52.4467 44.5518 52.204C44.1225 51.952 43.7818 51.6067 43.5298 51.168C43.2871 50.72 43.1658 50.2067 43.1658 49.628V44.896H44.2158V49.502C44.2158 49.9034 44.2951 50.258 44.4538 50.566C44.6218 50.8647 44.8505 51.098 45.1398 51.266C45.4385 51.434 45.7791 51.518 46.1618 51.518C46.5445 51.518 46.8851 51.434 47.1838 51.266C47.4825 51.0887 47.7158 50.8414 47.8838 50.524C48.0518 50.1974 48.1358 49.81 48.1358 49.362V44.896H49.1858V52.4H48.1358V50.944L48.3738 51C48.1965 51.4854 47.8931 51.868 47.4638 52.148C47.0345 52.428 46.5398 52.568 45.9798 52.568ZM55.6452 52.4V44.896H56.6952V52.4H55.6452ZM55.6452 43.51V41.97H56.6952V43.51H55.6452ZM65.7484 52.568C65.0297 52.568 64.3997 52.386 63.8584 52.022C63.3171 51.658 62.9251 51.1634 62.6824 50.538L63.5644 50.118C63.7791 50.5754 64.0777 50.9394 64.4604 51.21C64.8524 51.4807 65.2817 51.616 65.7484 51.616C66.1964 51.616 66.5744 51.5087 66.8824 51.294C67.1904 51.07 67.3444 50.7807 67.3444 50.426C67.3444 50.1647 67.2697 49.9594 67.1204 49.81C66.9711 49.6514 66.7984 49.53 66.6024 49.446C66.4064 49.362 66.2337 49.3014 66.0844 49.264L65.0064 48.956C64.3157 48.76 63.8164 48.4847 63.5084 48.13C63.2004 47.7754 63.0464 47.3647 63.0464 46.898C63.0464 46.4594 63.1584 46.0767 63.3824 45.75C63.6064 45.4234 63.9097 45.1714 64.2924 44.994C64.6751 44.8167 65.0997 44.728 65.5664 44.728C66.2011 44.728 66.7751 44.896 67.2884 45.232C67.8111 45.5587 68.1797 46.016 68.3944 46.604L67.4984 47.024C67.3117 46.604 67.0411 46.2774 66.6864 46.044C66.3411 45.8014 65.9537 45.68 65.5244 45.68C65.1044 45.68 64.7684 45.7874 64.5164 46.002C64.2644 46.2167 64.1384 46.4874 64.1384 46.814C64.1384 47.066 64.2037 47.2667 64.3344 47.416C64.4651 47.5654 64.6144 47.6774 64.7824 47.752C64.9597 47.8267 65.1137 47.8827 65.2444 47.92L66.4904 48.284C67.0971 48.4614 67.5684 48.7367 67.9044 49.11C68.2497 49.4834 68.4224 49.922 68.4224 50.426C68.4224 50.8367 68.3057 51.2054 68.0724 51.532C67.8484 51.8587 67.5357 52.1154 67.1344 52.302C66.7331 52.4794 66.2711 52.568 65.7484 52.568ZM74.5675 52.4V44.896H75.6175V52.4H74.5675ZM74.5675 43.51V41.97H75.6175V43.51H74.5675ZM85.4827 52.568C84.7827 52.568 84.148 52.4 83.5787 52.064C83.0187 51.7187 82.5753 51.2474 82.2487 50.65C81.922 50.0527 81.7587 49.376 81.7587 48.62C81.7587 47.864 81.9173 47.1967 82.2347 46.618C82.552 46.03 82.9813 45.568 83.5227 45.232C84.0733 44.896 84.6893 44.728 85.3707 44.728C85.912 44.728 86.3927 44.8307 86.8127 45.036C87.242 45.232 87.606 45.5027 87.9047 45.848C88.2033 46.184 88.432 46.5667 88.5907 46.996C88.7493 47.416 88.8287 47.85 88.8287 48.298C88.8287 48.3914 88.824 48.4987 88.8147 48.62C88.8053 48.732 88.7913 48.8487 88.7727 48.97H82.4307V47.99H88.1707L87.6667 48.41C87.7507 47.8967 87.69 47.4394 87.4847 47.038C87.2887 46.6274 87.004 46.3054 86.6307 46.072C86.2573 45.8294 85.8373 45.708 85.3707 45.708C84.904 45.708 84.47 45.8294 84.0687 46.072C83.6767 46.3147 83.3687 46.6554 83.1447 47.094C82.9207 47.5234 82.832 48.0367 82.8787 48.634C82.832 49.2314 82.9253 49.754 83.1587 50.202C83.4013 50.6407 83.728 50.9814 84.1387 51.224C84.5587 51.4667 85.0067 51.588 85.4827 51.588C86.0333 51.588 86.4953 51.4574 86.8687 51.196C87.242 50.9347 87.5453 50.608 87.7787 50.216L88.6747 50.692C88.5253 51.028 88.2967 51.3407 87.9887 51.63C87.6807 51.91 87.312 52.1387 86.8827 52.316C86.4627 52.484 85.996 52.568 85.4827 52.568ZM94.98 52.4V44.896H96.03V46.128L95.89 45.946C96.0673 45.5914 96.3333 45.3114 96.688 45.106C97.052 44.9007 97.4906 44.798 98.004 44.798H98.48V45.848H97.822C97.2806 45.848 96.8466 46.016 96.52 46.352C96.1933 46.688 96.03 47.164 96.03 47.78V52.4H94.98Z" fill="#FFFFFF"/><path d="M110.843 52.4V41.97H115.225C115.813 41.97 116.322 42.082 116.751 42.306C117.19 42.5207 117.526 42.824 117.759 43.216C118.002 43.608 118.123 44.0654 118.123 44.588C118.123 45.1294 117.988 45.61 117.717 46.03C117.456 46.4407 117.078 46.7534 116.583 46.968L116.569 46.632C116.98 46.7814 117.33 46.9914 117.619 47.262C117.918 47.5327 118.147 47.85 118.305 48.214C118.464 48.5687 118.543 48.9514 118.543 49.362C118.543 50.2954 118.245 51.0374 117.647 51.588C117.059 52.1294 116.257 52.4 115.239 52.4H110.843ZM111.963 51.35H115.239C115.902 51.35 116.429 51.1774 116.821 50.832C117.223 50.4774 117.423 49.992 117.423 49.376C117.423 48.7694 117.223 48.2887 116.821 47.934C116.429 47.57 115.902 47.388 115.239 47.388H111.963V51.35ZM111.963 46.38H115.141C115.701 46.38 116.149 46.2167 116.485 45.89C116.831 45.5634 117.003 45.1434 117.003 44.63C117.003 44.1074 116.831 43.7107 116.485 43.44C116.149 43.16 115.701 43.02 115.141 43.02H111.963V46.38ZM128.21 52.568C127.501 52.568 126.857 52.4 126.278 52.064C125.7 51.7187 125.238 51.252 124.892 50.664C124.556 50.0667 124.388 49.39 124.388 48.634C124.388 47.8874 124.556 47.22 124.892 46.632C125.228 46.044 125.681 45.582 126.25 45.246C126.829 44.9007 127.482 44.728 128.21 44.728C128.938 44.728 129.587 44.896 130.156 45.232C130.735 45.568 131.188 46.03 131.514 46.618C131.85 47.206 132.018 47.878 132.018 48.634C132.018 49.3994 131.846 50.0807 131.5 50.678C131.155 51.266 130.693 51.728 130.114 52.064C129.545 52.4 128.91 52.568 128.21 52.568ZM128.21 51.518C128.714 51.518 129.167 51.392 129.568 51.14C129.979 50.888 130.301 50.5427 130.534 50.104C130.777 49.6654 130.898 49.1754 130.898 48.634C130.898 48.0927 130.777 47.6074 130.534 47.178C130.301 46.7487 129.979 46.408 129.568 46.156C129.167 45.904 128.714 45.778 128.21 45.778C127.706 45.778 127.249 45.904 126.838 46.156C126.437 46.408 126.115 46.7487 125.872 47.178C125.63 47.6074 125.508 48.0927 125.508 48.634C125.508 49.1754 125.63 49.6654 125.872 50.104C126.115 50.5427 126.437 50.888 126.838 51.14C127.249 51.392 127.706 51.518 128.21 51.518ZM138.17 52.4V44.896H139.22V46.128L139.08 45.946C139.258 45.5914 139.524 45.3114 139.878 45.106C140.242 44.9007 140.681 44.798 141.194 44.798H141.67V45.848H141.012C140.471 45.848 140.037 46.016 139.71 46.352C139.384 46.688 139.22 47.164 139.22 47.78V52.4H138.17ZM150.589 52.568C149.889 52.568 149.259 52.4 148.699 52.064C148.139 51.7187 147.695 51.252 147.369 50.664C147.051 50.0667 146.893 49.3947 146.893 48.648C146.893 47.892 147.051 47.22 147.369 46.632C147.695 46.044 148.134 45.582 148.685 45.246C149.245 44.9007 149.879 44.728 150.589 44.728C151.233 44.728 151.807 44.868 152.311 45.148C152.815 45.428 153.211 45.806 153.501 46.282L153.333 46.576V41.802H154.383V52.4H153.333V50.72L153.501 50.874C153.239 51.4154 152.847 51.8354 152.325 52.134C151.811 52.4234 151.233 52.568 150.589 52.568ZM150.645 51.518C151.149 51.518 151.601 51.392 152.003 51.14C152.413 50.888 152.735 50.5474 152.969 50.118C153.211 49.6794 153.333 49.1894 153.333 48.648C153.333 48.1067 153.211 47.6214 152.969 47.192C152.735 46.7534 152.413 46.408 152.003 46.156C151.601 45.904 151.149 45.778 150.645 45.778C150.15 45.778 149.702 45.904 149.301 46.156C148.899 46.408 148.582 46.7487 148.349 47.178C148.125 47.6074 148.013 48.0974 148.013 48.648C148.013 49.1894 148.125 49.6794 148.349 50.118C148.582 50.5474 148.895 50.888 149.287 51.14C149.688 51.392 150.141 51.518 150.645 51.518ZM164.255 52.568C163.555 52.568 162.92 52.4 162.351 52.064C161.791 51.7187 161.347 51.2474 161.021 50.65C160.694 50.0527 160.531 49.376 160.531 48.62C160.531 47.864 160.689 47.1967 161.007 46.618C161.324 46.03 161.753 45.568 162.295 45.232C162.845 44.896 163.461 44.728 164.143 44.728C164.684 44.728 165.165 44.8307 165.585 45.036C166.014 45.232 166.378 45.5027 166.677 45.848C166.975 46.184 167.204 46.5667 167.363 46.996C167.521 47.416 167.601 47.85 167.601 48.298C167.601 48.3914 167.596 48.4987 167.587 48.62C167.577 48.732 167.563 48.8487 167.545 48.97H161.203V47.99H166.943L166.439 48.41C166.523 47.8967 166.462 47.4394 166.257 47.038C166.061 46.6274 165.776 46.3054 165.403 46.072C165.029 45.8294 164.609 45.708 164.143 45.708C163.676 45.708 163.242 45.8294 162.841 46.072C162.449 46.3147 162.141 46.6554 161.917 47.094C161.693 47.5234 161.604 48.0367 161.651 48.634C161.604 49.2314 161.697 49.754 161.931 50.202C162.173 50.6407 162.5 50.9814 162.911 51.224C163.331 51.4667 163.779 51.588 164.255 51.588C164.805 51.588 165.267 51.4574 165.641 51.196C166.014 50.9347 166.317 50.608 166.551 50.216L167.447 50.692C167.297 51.028 167.069 51.3407 166.761 51.63C166.453 51.91 166.084 52.1387 165.655 52.316C165.235 52.484 164.768 52.568 164.255 52.568ZM175.785 52.568C175.309 52.568 174.884 52.4794 174.511 52.302C174.138 52.1154 173.844 51.8634 173.629 51.546C173.414 51.2287 173.307 50.8647 173.307 50.454C173.307 50.062 173.391 49.7074 173.559 49.39C173.727 49.0634 173.988 48.788 174.343 48.564C174.698 48.34 175.15 48.1814 175.701 48.088L178.641 47.598V48.55L175.953 48.998C175.412 49.0914 175.02 49.264 174.777 49.516C174.544 49.768 174.427 50.0667 174.427 50.412C174.427 50.748 174.558 51.0327 174.819 51.266C175.09 51.4994 175.435 51.616 175.855 51.616C176.368 51.616 176.816 51.5087 177.199 51.294C177.582 51.07 177.88 50.7714 178.095 50.398C178.31 50.0247 178.417 49.6094 178.417 49.152V47.248C178.417 46.8 178.254 46.436 177.927 46.156C177.6 45.876 177.176 45.736 176.653 45.736C176.196 45.736 175.794 45.8527 175.449 46.086C175.104 46.31 174.847 46.604 174.679 46.968L173.727 46.45C173.867 46.1327 174.086 45.8434 174.385 45.582C174.693 45.3207 175.043 45.1154 175.435 44.966C175.827 44.8074 176.233 44.728 176.653 44.728C177.204 44.728 177.689 44.8354 178.109 45.05C178.538 45.2647 178.87 45.5634 179.103 45.946C179.346 46.3194 179.467 46.7534 179.467 47.248V52.4H178.417V50.902L178.571 51.056C178.44 51.336 178.235 51.5927 177.955 51.826C177.684 52.05 177.362 52.232 176.989 52.372C176.625 52.5027 176.224 52.568 175.785 52.568ZM188.587 52.568C188.064 52.568 187.588 52.4467 187.159 52.204C186.729 51.952 186.389 51.6067 186.137 51.168C185.894 50.72 185.773 50.2067 185.773 49.628V44.896H186.823V49.502C186.823 49.9034 186.902 50.258 187.061 50.566C187.229 50.8647 187.457 51.098 187.747 51.266C188.045 51.434 188.386 51.518 188.769 51.518C189.151 51.518 189.492 51.434 189.791 51.266C190.089 51.0887 190.323 50.8414 190.491 50.524C190.659 50.1974 190.743 49.81 190.743 49.362V44.896H191.793V52.4H190.743V50.944L190.981 51C190.803 51.4854 190.5 51.868 190.071 52.148C189.641 52.428 189.147 52.568 188.587 52.568ZM197.328 52.4L199.96 48.648L197.342 44.896H198.63L200.954 48.27H200.24L202.55 44.896H203.838L201.22 48.648L203.838 52.4H202.55L200.24 49.026H200.954L198.63 52.4H197.328Z" fill="#FFFFFF"/><path d="M192.855 10.3024C193.622 10.3024 194.251 10.9756 194.251 11.7999V13.4348C194.251 14.2592 193.622 14.9324 192.855 14.9324H173.927V23.5329C173.927 23.9863 174.297 24.3435 174.735 24.3435H192.855C193.622 24.3435 194.251 25.0167 194.251 25.841H205.077C205.022 23.3955 204.037 21.1973 202.477 19.6311C204.092 18.0099 205.091 15.7292 205.091 13.1875V9.72536C205.091 4.86182 201.368 0.891296 196.824 0.891296H170.684V9.4918C170.684 9.94518 171.053 10.3024 171.491 10.3024H192.855Z" fill="#FFFFFF"/><path d="M194.196 27.833C194.046 28.4787 193.498 28.9596 192.855 28.9596H170.683V37.5601C170.683 38.0135 171.053 38.3707 171.491 38.3707H196.824C201.368 38.3707 205.091 34.3864 205.091 29.5366V27.833H194.21H194.196Z" fill="#FFFFFF"/><path d="M152.969 10.3024C153.736 10.3024 154.365 10.9756 154.365 11.7999V13.4348C154.365 14.2592 153.736 14.9324 152.969 14.9324H134.041V23.5329C134.041 23.9863 134.411 24.3435 134.849 24.3435H152.969C153.736 24.3435 154.365 25.0167 154.365 25.841H165.191C165.136 23.3955 164.151 21.1973 162.591 19.6311C164.206 18.0099 165.205 15.7292 165.205 13.1875V9.72536C165.205 4.86182 161.482 0.891296 156.938 0.891296H130.798V9.4918C130.798 9.94518 131.167 10.3024 131.605 10.3024H152.969Z" fill="#FFFFFF"/><path d="M154.324 27.833C154.174 28.4787 153.626 28.9596 152.983 28.9596H130.811V37.5601C130.811 38.0135 131.181 38.3707 131.619 38.3707H156.952C161.496 38.3707 165.219 34.3864 165.219 29.5366V27.833H154.338H154.324Z" fill="#FFFFFF"/><path d="M125.305 25.8446V1.69176C125.305 1.23837 124.936 0.881165 124.498 0.881165H114.479V25.8446H125.319H125.305Z" fill="#FFFFFF"/><path d="M114.425 27.8367C114.274 28.4825 113.727 28.9633 113.083 28.9633H100.985C100.341 28.9633 99.7939 28.4825 99.6434 27.8367H88.7628V29.5403C88.7628 34.4039 92.4855 38.3744 97.0293 38.3744H117.066C121.61 38.3744 125.333 34.3901 125.333 29.5403V27.8367H114.452H114.425Z" fill="#FFFFFF"/><path d="M99.5747 25.8446V1.69176C99.5747 1.23837 99.2052 0.881165 98.7672 0.881165H88.7489V25.8446H99.5884H99.5747Z" fill="#FFFFFF"/><path d="M64.0415 25.8446V1.69176C64.0415 1.23837 63.672 0.881165 63.234 0.881165H53.2157V25.0203C53.2157 25.4737 53.5852 25.8309 54.0232 25.8309H64.0415V25.8446Z" fill="#FFFFFF"/><path d="M64.0416 27.8367H53.202V37.5638C53.202 38.0172 53.5716 38.3744 54.0095 38.3744H83.2845V29.7739C83.2845 29.3205 82.915 28.9633 82.477 28.9633H64.0416V27.8367Z" fill="#FFFFFF"/></svg>
+        </div>
+        <span class="logo-label">Lockup · dark bg</span>
+      </div>
+      <div class="logo-variant logo-light">
+        <div class="logo-display">
+          <svg width="165" height="42" viewBox="0 0 206 53" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M2.232 52.4V41.97H3.212L7.132 47.654H6.586L10.492 41.97H11.472V52.4H10.352V43.482L10.716 43.622L6.88 49.18H6.824L3.002 43.622L3.352 43.482V52.4H2.232ZM21.4971 52.568C20.7971 52.568 20.1625 52.4 19.5931 52.064C19.0331 51.7187 18.5898 51.2474 18.2631 50.65C17.9365 50.0527 17.7731 49.376 17.7731 48.62C17.7731 47.864 17.9318 47.1967 18.2491 46.618C18.5665 46.03 18.9958 45.568 19.5371 45.232C20.0878 44.896 20.7038 44.728 21.3851 44.728C21.9265 44.728 22.4071 44.8307 22.8271 45.036C23.2565 45.232 23.6205 45.5027 23.9191 45.848C24.2178 46.184 24.4465 46.5667 24.6051 46.996C24.7638 47.416 24.8431 47.85 24.8431 48.298C24.8431 48.3914 24.8385 48.4987 24.8291 48.62C24.8198 48.732 24.8058 48.8487 24.7871 48.97H18.4451V47.99H24.1851L23.6811 48.41C23.7651 47.8967 23.7045 47.4394 23.4991 47.038C23.3031 46.6274 23.0185 46.3054 22.6451 46.072C22.2718 45.8294 21.8518 45.708 21.3851 45.708C20.9185 45.708 20.4845 45.8294 20.0831 46.072C19.6911 46.3147 19.3831 46.6554 19.1591 47.094C18.9351 47.5234 18.8465 48.0367 18.8931 48.634C18.8465 49.2314 18.9398 49.754 19.1731 50.202C19.4158 50.6407 19.7425 50.9814 20.1531 51.224C20.5731 51.4667 21.0211 51.588 21.4971 51.588C22.0478 51.588 22.5098 51.4574 22.8831 51.196C23.2565 50.9347 23.5598 50.608 23.7931 50.216L24.6891 50.692C24.5398 51.028 24.3111 51.3407 24.0031 51.63C23.6951 51.91 23.3265 52.1387 22.8971 52.316C22.4771 52.484 22.0105 52.568 21.4971 52.568ZM30.9944 52.4V44.896H32.0444V46.352L31.8064 46.296C31.9931 45.8107 32.2964 45.428 32.7164 45.148C33.1457 44.868 33.6404 44.728 34.2004 44.728C34.7324 44.728 35.2084 44.8494 35.6284 45.092C36.0577 45.3347 36.3937 45.6707 36.6364 46.1C36.8884 46.52 37.0144 46.996 37.0144 47.528V52.4H35.9644V47.934C35.9644 47.4767 35.8804 47.0894 35.7124 46.772C35.5537 46.4547 35.3251 46.212 35.0264 46.044C34.7371 45.8667 34.4011 45.778 34.0184 45.778C33.6357 45.778 33.2951 45.8667 32.9964 46.044C32.6977 46.212 32.4644 46.4594 32.2964 46.786C32.1284 47.1034 32.0444 47.486 32.0444 47.934V52.4H30.9944ZM45.9798 52.568C45.4571 52.568 44.9811 52.4467 44.5518 52.204C44.1225 51.952 43.7818 51.6067 43.5298 51.168C43.2871 50.72 43.1658 50.2067 43.1658 49.628V44.896H44.2158V49.502C44.2158 49.9034 44.2951 50.258 44.4538 50.566C44.6218 50.8647 44.8505 51.098 45.1398 51.266C45.4385 51.434 45.7791 51.518 46.1618 51.518C46.5445 51.518 46.8851 51.434 47.1838 51.266C47.4825 51.0887 47.7158 50.8414 47.8838 50.524C48.0518 50.1974 48.1358 49.81 48.1358 49.362V44.896H49.1858V52.4H48.1358V50.944L48.3738 51C48.1965 51.4854 47.8931 51.868 47.4638 52.148C47.0345 52.428 46.5398 52.568 45.9798 52.568ZM55.6452 52.4V44.896H56.6952V52.4H55.6452ZM55.6452 43.51V41.97H56.6952V43.51H55.6452ZM65.7484 52.568C65.0297 52.568 64.3997 52.386 63.8584 52.022C63.3171 51.658 62.9251 51.1634 62.6824 50.538L63.5644 50.118C63.7791 50.5754 64.0777 50.9394 64.4604 51.21C64.8524 51.4807 65.2817 51.616 65.7484 51.616C66.1964 51.616 66.5744 51.5087 66.8824 51.294C67.1904 51.07 67.3444 50.7807 67.3444 50.426C67.3444 50.1647 67.2697 49.9594 67.1204 49.81C66.9711 49.6514 66.7984 49.53 66.6024 49.446C66.4064 49.362 66.2337 49.3014 66.0844 49.264L65.0064 48.956C64.3157 48.76 63.8164 48.4847 63.5084 48.13C63.2004 47.7754 63.0464 47.3647 63.0464 46.898C63.0464 46.4594 63.1584 46.0767 63.3824 45.75C63.6064 45.4234 63.9097 45.1714 64.2924 44.994C64.6751 44.8167 65.0997 44.728 65.5664 44.728C66.2011 44.728 66.7751 44.896 67.2884 45.232C67.8111 45.5587 68.1797 46.016 68.3944 46.604L67.4984 47.024C67.3117 46.604 67.0411 46.2774 66.6864 46.044C66.3411 45.8014 65.9537 45.68 65.5244 45.68C65.1044 45.68 64.7684 45.7874 64.5164 46.002C64.2644 46.2167 64.1384 46.4874 64.1384 46.814C64.1384 47.066 64.2037 47.2667 64.3344 47.416C64.4651 47.5654 64.6144 47.6774 64.7824 47.752C64.9597 47.8267 65.1137 47.8827 65.2444 47.92L66.4904 48.284C67.0971 48.4614 67.5684 48.7367 67.9044 49.11C68.2497 49.4834 68.4224 49.922 68.4224 50.426C68.4224 50.8367 68.3057 51.2054 68.0724 51.532C67.8484 51.8587 67.5357 52.1154 67.1344 52.302C66.7331 52.4794 66.2711 52.568 65.7484 52.568ZM74.5675 52.4V44.896H75.6175V52.4H74.5675ZM74.5675 43.51V41.97H75.6175V43.51H74.5675ZM85.4827 52.568C84.7827 52.568 84.148 52.4 83.5787 52.064C83.0187 51.7187 82.5753 51.2474 82.2487 50.65C81.922 50.0527 81.7587 49.376 81.7587 48.62C81.7587 47.864 81.9173 47.1967 82.2347 46.618C82.552 46.03 82.9813 45.568 83.5227 45.232C84.0733 44.896 84.6893 44.728 85.3707 44.728C85.912 44.728 86.3927 44.8307 86.8127 45.036C87.242 45.232 87.606 45.5027 87.9047 45.848C88.2033 46.184 88.432 46.5667 88.5907 46.996C88.7493 47.416 88.8287 47.85 88.8287 48.298C88.8287 48.3914 88.824 48.4987 88.8147 48.62C88.8053 48.732 88.7913 48.8487 88.7727 48.97H82.4307V47.99H88.1707L87.6667 48.41C87.7507 47.8967 87.69 47.4394 87.4847 47.038C87.2887 46.6274 87.004 46.3054 86.6307 46.072C86.2573 45.8294 85.8373 45.708 85.3707 45.708C84.904 45.708 84.47 45.8294 84.0687 46.072C83.6767 46.3147 83.3687 46.6554 83.1447 47.094C82.9207 47.5234 82.832 48.0367 82.8787 48.634C82.832 49.2314 82.9253 49.754 83.1587 50.202C83.4013 50.6407 83.728 50.9814 84.1387 51.224C84.5587 51.4667 85.0067 51.588 85.4827 51.588C86.0333 51.588 86.4953 51.4574 86.8687 51.196C87.242 50.9347 87.5453 50.608 87.7787 50.216L88.6747 50.692C88.5253 51.028 88.2967 51.3407 87.9887 51.63C87.6807 51.91 87.312 52.1387 86.8827 52.316C86.4627 52.484 85.996 52.568 85.4827 52.568ZM94.98 52.4V44.896H96.03V46.128L95.89 45.946C96.0673 45.5914 96.3333 45.3114 96.688 45.106C97.052 44.9007 97.4906 44.798 98.004 44.798H98.48V45.848H97.822C97.2806 45.848 96.8466 46.016 96.52 46.352C96.1933 46.688 96.03 47.164 96.03 47.78V52.4H94.98Z" fill="#404444"/><path d="M110.843 52.4V41.97H115.225C115.813 41.97 116.322 42.082 116.751 42.306C117.19 42.5207 117.526 42.824 117.759 43.216C118.002 43.608 118.123 44.0654 118.123 44.588C118.123 45.1294 117.988 45.61 117.717 46.03C117.456 46.4407 117.078 46.7534 116.583 46.968L116.569 46.632C116.98 46.7814 117.33 46.9914 117.619 47.262C117.918 47.5327 118.147 47.85 118.305 48.214C118.464 48.5687 118.543 48.9514 118.543 49.362C118.543 50.2954 118.245 51.0374 117.647 51.588C117.059 52.1294 116.257 52.4 115.239 52.4H110.843ZM111.963 51.35H115.239C115.902 51.35 116.429 51.1774 116.821 50.832C117.223 50.4774 117.423 49.992 117.423 49.376C117.423 48.7694 117.223 48.2887 116.821 47.934C116.429 47.57 115.902 47.388 115.239 47.388H111.963V51.35ZM111.963 46.38H115.141C115.701 46.38 116.149 46.2167 116.485 45.89C116.831 45.5634 117.003 45.1434 117.003 44.63C117.003 44.1074 116.831 43.7107 116.485 43.44C116.149 43.16 115.701 43.02 115.141 43.02H111.963V46.38ZM128.21 52.568C127.501 52.568 126.857 52.4 126.278 52.064C125.7 51.7187 125.238 51.252 124.892 50.664C124.556 50.0667 124.388 49.39 124.388 48.634C124.388 47.8874 124.556 47.22 124.892 46.632C125.228 46.044 125.681 45.582 126.25 45.246C126.829 44.9007 127.482 44.728 128.21 44.728C128.938 44.728 129.587 44.896 130.156 45.232C130.735 45.568 131.188 46.03 131.514 46.618C131.85 47.206 132.018 47.878 132.018 48.634C132.018 49.3994 131.846 50.0807 131.5 50.678C131.155 51.266 130.693 51.728 130.114 52.064C129.545 52.4 128.91 52.568 128.21 52.568ZM128.21 51.518C128.714 51.518 129.167 51.392 129.568 51.14C129.979 50.888 130.301 50.5427 130.534 50.104C130.777 49.6654 130.898 49.1754 130.898 48.634C130.898 48.0927 130.777 47.6074 130.534 47.178C130.301 46.7487 129.979 46.408 129.568 46.156C129.167 45.904 128.714 45.778 128.21 45.778C127.706 45.778 127.249 45.904 126.838 46.156C126.437 46.408 126.115 46.7487 125.872 47.178C125.63 47.6074 125.508 48.0927 125.508 48.634C125.508 49.1754 125.63 49.6654 125.872 50.104C126.115 50.5427 126.437 50.888 126.838 51.14C127.249 51.392 127.706 51.518 128.21 51.518ZM138.17 52.4V44.896H139.22V46.128L139.08 45.946C139.258 45.5914 139.524 45.3114 139.878 45.106C140.242 44.9007 140.681 44.798 141.194 44.798H141.67V45.848H141.012C140.471 45.848 140.037 46.016 139.71 46.352C139.384 46.688 139.22 47.164 139.22 47.78V52.4H138.17ZM150.589 52.568C149.889 52.568 149.259 52.4 148.699 52.064C148.139 51.7187 147.695 51.252 147.369 50.664C147.051 50.0667 146.893 49.3947 146.893 48.648C146.893 47.892 147.051 47.22 147.369 46.632C147.695 46.044 148.134 45.582 148.685 45.246C149.245 44.9007 149.879 44.728 150.589 44.728C151.233 44.728 151.807 44.868 152.311 45.148C152.815 45.428 153.211 45.806 153.501 46.282L153.333 46.576V41.802H154.383V52.4H153.333V50.72L153.501 50.874C153.239 51.4154 152.847 51.8354 152.325 52.134C151.811 52.4234 151.233 52.568 150.589 52.568ZM150.645 51.518C151.149 51.518 151.601 51.392 152.003 51.14C152.413 50.888 152.735 50.5474 152.969 50.118C153.211 49.6794 153.333 49.1894 153.333 48.648C153.333 48.1067 153.211 47.6214 152.969 47.192C152.735 46.7534 152.413 46.408 152.003 46.156C151.601 45.904 151.149 45.778 150.645 45.778C150.15 45.778 149.702 45.904 149.301 46.156C148.899 46.408 148.582 46.7487 148.349 47.178C148.125 47.6074 148.013 48.0974 148.013 48.648C148.013 49.1894 148.125 49.6794 148.349 50.118C148.582 50.5474 148.895 50.888 149.287 51.14C149.688 51.392 150.141 51.518 150.645 51.518ZM164.255 52.568C163.555 52.568 162.92 52.4 162.351 52.064C161.791 51.7187 161.347 51.2474 161.021 50.65C160.694 50.0527 160.531 49.376 160.531 48.62C160.531 47.864 160.689 47.1967 161.007 46.618C161.324 46.03 161.753 45.568 162.295 45.232C162.845 44.896 163.461 44.728 164.143 44.728C164.684 44.728 165.165 44.8307 165.585 45.036C166.014 45.232 166.378 45.5027 166.677 45.848C166.975 46.184 167.204 46.5667 167.363 46.996C167.521 47.416 167.601 47.85 167.601 48.298C167.601 48.3914 167.596 48.4987 167.587 48.62C167.577 48.732 167.563 48.8487 167.545 48.97H161.203V47.99H166.943L166.439 48.41C166.523 47.8967 166.462 47.4394 166.257 47.038C166.061 46.6274 165.776 46.3054 165.403 46.072C165.029 45.8294 164.609 45.708 164.143 45.708C163.676 45.708 163.242 45.8294 162.841 46.072C162.449 46.3147 162.141 46.6554 161.917 47.094C161.693 47.5234 161.604 48.0367 161.651 48.634C161.604 49.2314 161.697 49.754 161.931 50.202C162.173 50.6407 162.5 50.9814 162.911 51.224C163.331 51.4667 163.779 51.588 164.255 51.588C164.805 51.588 165.267 51.4574 165.641 51.196C166.014 50.9347 166.317 50.608 166.551 50.216L167.447 50.692C167.297 51.028 167.069 51.3407 166.761 51.63C166.453 51.91 166.084 52.1387 165.655 52.316C165.235 52.484 164.768 52.568 164.255 52.568ZM175.785 52.568C175.309 52.568 174.884 52.4794 174.511 52.302C174.138 52.1154 173.844 51.8634 173.629 51.546C173.414 51.2287 173.307 50.8647 173.307 50.454C173.307 50.062 173.391 49.7074 173.559 49.39C173.727 49.0634 173.988 48.788 174.343 48.564C174.698 48.34 175.15 48.1814 175.701 48.088L178.641 47.598V48.55L175.953 48.998C175.412 49.0914 175.02 49.264 174.777 49.516C174.544 49.768 174.427 50.0667 174.427 50.412C174.427 50.748 174.558 51.0327 174.819 51.266C175.09 51.4994 175.435 51.616 175.855 51.616C176.368 51.616 176.816 51.5087 177.199 51.294C177.582 51.07 177.88 50.7714 178.095 50.398C178.31 50.0247 178.417 49.6094 178.417 49.152V47.248C178.417 46.8 178.254 46.436 177.927 46.156C177.6 45.876 177.176 45.736 176.653 45.736C176.196 45.736 175.794 45.8527 175.449 46.086C175.104 46.31 174.847 46.604 174.679 46.968L173.727 46.45C173.867 46.1327 174.086 45.8434 174.385 45.582C174.693 45.3207 175.043 45.1154 175.435 44.966C175.827 44.8074 176.233 44.728 176.653 44.728C177.204 44.728 177.689 44.8354 178.109 45.05C178.538 45.2647 178.87 45.5634 179.103 45.946C179.346 46.3194 179.467 46.7534 179.467 47.248V52.4H178.417V50.902L178.571 51.056C178.44 51.336 178.235 51.5927 177.955 51.826C177.684 52.05 177.362 52.232 176.989 52.372C176.625 52.5027 176.224 52.568 175.785 52.568ZM188.587 52.568C188.064 52.568 187.588 52.4467 187.159 52.204C186.729 51.952 186.389 51.6067 186.137 51.168C185.894 50.72 185.773 50.2067 185.773 49.628V44.896H186.823V49.502C186.823 49.9034 186.902 50.258 187.061 50.566C187.229 50.8647 187.457 51.098 187.747 51.266C188.045 51.434 188.386 51.518 188.769 51.518C189.151 51.518 189.492 51.434 189.791 51.266C190.089 51.0887 190.323 50.8414 190.491 50.524C190.659 50.1974 190.743 49.81 190.743 49.362V44.896H191.793V52.4H190.743V50.944L190.981 51C190.803 51.4854 190.5 51.868 190.071 52.148C189.641 52.428 189.147 52.568 188.587 52.568ZM197.328 52.4L199.96 48.648L197.342 44.896H198.63L200.954 48.27H200.24L202.55 44.896H203.838L201.22 48.648L203.838 52.4H202.55L200.24 49.026H200.954L198.63 52.4H197.328Z" fill="#404444"/><path d="M192.855 10.3024C193.622 10.3024 194.251 10.9756 194.251 11.7999V13.4348C194.251 14.2592 193.622 14.9324 192.855 14.9324H173.927V23.5329C173.927 23.9863 174.297 24.3435 174.735 24.3435H192.855C193.622 24.3435 194.251 25.0167 194.251 25.841H205.077C205.022 23.3955 204.037 21.1973 202.477 19.6311C204.092 18.0099 205.091 15.7292 205.091 13.1875V9.72536C205.091 4.86182 201.368 0.891296 196.824 0.891296H170.684V9.4918C170.684 9.94518 171.053 10.3024 171.491 10.3024H192.855Z" fill="#101111"/><path d="M194.196 27.833C194.046 28.4787 193.498 28.9596 192.855 28.9596H170.683V37.5601C170.683 38.0135 171.053 38.3707 171.491 38.3707H196.824C201.368 38.3707 205.091 34.3864 205.091 29.5366V27.833H194.21H194.196Z" fill="#101111"/><path d="M152.969 10.3024C153.736 10.3024 154.365 10.9756 154.365 11.7999V13.4348C154.365 14.2592 153.736 14.9324 152.969 14.9324H134.041V23.5329C134.041 23.9863 134.411 24.3435 134.849 24.3435H152.969C153.736 24.3435 154.365 25.0167 154.365 25.841H165.191C165.136 23.3955 164.151 21.1973 162.591 19.6311C164.206 18.0099 165.205 15.7292 165.205 13.1875V9.72536C165.205 4.86182 161.482 0.891296 156.938 0.891296H130.798V9.4918C130.798 9.94518 131.167 10.3024 131.605 10.3024H152.969Z" fill="#101111"/><path d="M154.324 27.833C154.174 28.4787 153.626 28.9596 152.983 28.9596H130.811V37.5601C130.811 38.0135 131.181 38.3707 131.619 38.3707H156.952C161.496 38.3707 165.219 34.3864 165.219 29.5366V27.833H154.338H154.324Z" fill="#101111"/><path d="M125.305 25.8446V1.69176C125.305 1.23837 124.936 0.881165 124.498 0.881165H114.479V25.8446H125.319H125.305Z" fill="#101111"/><path d="M114.425 27.8367C114.274 28.4825 113.727 28.9633 113.083 28.9633H100.985C100.341 28.9633 99.7939 28.4825 99.6434 27.8367H88.7628V29.5403C88.7628 34.4039 92.4855 38.3744 97.0293 38.3744H117.066C121.61 38.3744 125.333 34.3901 125.333 29.5403V27.8367H114.452H114.425Z" fill="#101111"/><path d="M99.5747 25.8446V1.69176C99.5747 1.23837 99.2052 0.881165 98.7672 0.881165H88.7489V25.8446H99.5884H99.5747Z" fill="#101111"/><path d="M64.0415 25.8446V1.69176C64.0415 1.23837 63.672 0.881165 63.234 0.881165H53.2157V25.0203C53.2157 25.4737 53.5852 25.8309 54.0232 25.8309H64.0415V25.8446Z" fill="#101111"/><path d="M64.0416 27.8367H53.202V37.5638C53.202 38.0172 53.5716 38.3744 54.0095 38.3744H83.2845V29.7739C83.2845 29.3205 82.915 28.9633 82.477 28.9633H64.0416V27.8367Z" fill="#101111"/></svg>
+        </div>
+        <span class="logo-label">Lockup · light bg</span>
+      </div>
+      <div class="logo-variant logo-compact">
+        <div class="logo-display">
+          <svg width="38" height="31" viewBox="0 0 48 39" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M26.0587 30.2934L25.3607 31.5711L25.2101 31.8459L24.6353 32.89L22.1581 37.4101C21.8296 38.0009 21.2137 38.3718 20.5431 38.3718H7.62939e-06L2.98362 32.89L5.46083 28.3562L5.98091 27.3945L8.97821 21.9127L10.9217 18.3681L11.9892 16.4309L13.7821 13.1611L20.8442 23.0255L18.4491 27.3945L16.9163 30.1972L19.8588 30.2247H19.9136L24.1016 30.2522H25.3744H26.0724L26.0587 30.2934Z" fill="#101111"/><path d="M43.9325 33.0281L43.8367 32.8907L39.9087 27.4089L38.4716 25.4168L35.9807 21.9272L33.0108 17.7918L32.0528 16.4454L28.1248 10.9636L27.8784 10.6338L27.55 10.1805L24.3474 5.70161L24.1968 5.48179L22.1028 2.55542L20.83 0.769374C20.6521 0.522075 20.4331 0.343471 20.1731 0.206082C19.913 0.0686941 19.6256 0 19.3382 0H6.80157L10.7295 5.48179L11.1538 6.0863L11.4412 6.48472L12.1392 7.46018L14.9723 11.417L22.0344 21.2814L22.4997 21.9409L27.5363 28.9614L33.3119 37.0261L33.7362 37.6306C34.0783 38.1115 34.6395 38.4 35.228 38.4H47.7372L43.9051 33.0556L43.9325 33.0281Z" fill="#101111"/></svg>
+        </div>
+        <span class="logo-label">Compact · icon only</span>
+      </div>
+    </div>
+
+    <div class="logo-rules reveal">
+      <div class="rule-do">
+        <h4>✓ Do</h4>
+        <ul>
+          <li>SVG inline dans <code>&lt;div class="w-embed"&gt;</code></li>
+          <li>Respecter la taille mini 2.125rem en nav</li>
+          <li>Filter invert pour le footer dark</li>
+          <li>Marges de sécurité = 1× la hauteur du logo</li>
+        </ul>
+      </div>
+      <div class="rule-dont">
+        <h4>✗ Don't</h4>
+        <ul>
+          <li>Déformer les proportions</li>
+          <li>Utiliser le logo teal sur fond teal</li>
+          <li>Ajouter des ombres ou effets au logo</li>
+          <li>Utiliser en dessous de 24px de hauteur</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- 10 · BOUTONS                           -->
+<!-- ═══════════════════════════════════════ -->
+<section class="section section-dark" id="buttons">
+  <div class="container">
+    <span class="section-label reveal">07 · Boutons</span>
+    <h2 class="reveal">Trois <em>variantes</em>.</h2>
+    <p class="section-desc reveal">Primary pour les CTAs, secondary pour les actions secondaires, ghost pour les tertiaires. Tous en pill radius 3rem.</p>
+
+    <div class="btn-showcase reveal">
+      <a href="#" class="btn-primary"><span>Consultation offerte →</span></a>
+      <a href="#" class="btn-secondary"><span>Devis gratuit 7J/7</span></a>
+      <a href="#" class="btn-ghost"><span>En savoir plus</span></a>
+    </div>
+    <p class="btn-hint">Survoler pour voir le hover state</p>
+
+    <div style="margin-top:2.5rem;padding-top:2rem;border-top:1px solid rgba(255,255,255,0.06)">
+      <h3 class="reveal" style="color:var(--white);margin-bottom:1rem">Nav CTA</h3>
+      <div class="btn-showcase reveal">
+        <a href="#" class="btn-nav"><span>05 XX XX XX XX →</span></a>
+      </div>
+      <p class="btn-hint">Version compacte pour la navbar — teal solid pill</p>
+    </div>
+
+    <div style="margin-top:2.5rem;padding-top:2rem;border-top:1px solid rgba(255,255,255,0.06)">
+      <h3 class="reveal" style="color:var(--white);margin-bottom:0.75rem">Règle critique</h3>
+      <p style="font-size:0.875rem;color:rgba(255,255,255,0.6);line-height:1.65">Toujours wrapper le texte du bouton dans <code>&lt;span&gt;</code> pour le z-index du hover gradient. Transition 200ms ease-out sur <code>color</code>, <code>background-color</code>, <code>transform</code>, <code>box-shadow</code>, <code>border-color</code>.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- 11 · PILLS & BADGES                    -->
+<!-- ═══════════════════════════════════════ -->
+<section class="section" id="pills">
+  <div class="container">
+    <span class="section-label reveal">08 · Pills & Badges</span>
+    <h2 class="reveal">Taxinomie <em>colorée</em>.</h2>
+    <p class="section-desc reveal">Pills teal par défaut. Couleurs additionnelles pour Google, awards, et catégories. Construction : fond à 10% opacity, border à 22%.</p>
+
+    <div class="pills-showcase reveal">
+      <span class="pill pill-teal">Menuiserie aluminium</span>
+      <span class="pill pill-teal">Certifié RGE</span>
+      <span class="pill pill-blue">Avis Google vérifiés</span>
+      <span class="pill pill-gold">Artisan de confiance</span>
+      <span class="pill pill-green">Devis gratuit</span>
+      <span class="pill pill-grey">Concurrent</span>
+      <span class="pill pill-rose">Important</span>
+      <span class="pill pill-amber">En cours</span>
+    </div>
+
+    <div class="badges-showcase reveal">
+      <span class="pill pill-teal badge-sm">Alu33 Design System v1.0</span>
+      <span class="pill pill-green badge-sm">En prod</span>
+      <span class="pill pill-amber badge-sm">En cours</span>
+      <span class="pill pill-gold badge-sm" style="display:inline-flex;align-items:center;gap:0.375rem">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>
+        Le choix des Bordelais
+      </span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- 12 · CARDS                             -->
+<!-- ═══════════════════════════════════════ -->
+<section class="section section-dark" id="cards">
+  <div class="container">
+    <span class="section-label reveal">09 · Cards</span>
+    <h2 class="reveal">Cards <em>multi-variantes</em>.</h2>
+    <p class="section-desc reveal">Quatre niveaux d'élévation selon le contexte. Hover : translateY(-2px) + border teal.</p>
+
+    <div class="cards-grid reveal">
+      <div class="card card-white">
+        <span class="pill pill-teal">Basique</span>
+        <h3>Card subtle</h3>
+        <p>Border + shadow subtile. Pour grilles denses type certifications ou services.</p>
+      </div>
+      <div class="card card-elevated">
+        <span class="pill pill-blue">Élevée</span>
+        <h3>Card elevated</h3>
+        <p>Shadow 3 layers. Pour testimonials, stats monolith, about. Radius 1.25rem–1.75rem.</p>
+      </div>
+      <div class="card card-accent">
+        <span class="pill pill-gold">Premium</span>
+        <h3>Card accent</h3>
+        <p>Border teal + glow. Pour la card winner en comparaison, CTAs premium.</p>
+      </div>
+      <div class="card card-dark-bg">
+        <span class="pill pill-grey">Dark</span>
+        <h3>Card dark bg</h3>
+        <p>Sur fond footer ou sections dark. Background rgba blanc 4%, border rgba blanc 8%.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- 13 · SECTIONS LIGHT & SOFT             -->
+<!-- ═══════════════════════════════════════ -->
+<section class="section section-soft" id="light">
+  <div class="container">
+    <span class="section-label reveal">10 · Sections light & soft</span>
+    <h2 class="reveal">Alternance <em>blanc & beige</em>.</h2>
+    <p class="section-desc reveal">60% blanc + beige, 40% dark (footer). Jamais 3+ sections du même fond d'affilée. BG Soft #FAF9F7 pour les sections d'emphase (stats, comparaison, about).</p>
+
+    <div class="cards-light-grid reveal">
+      <div class="card card-white">
+        <h3>Sur fond blanc</h3>
+        <p>Border subtle + shadow. Le standard pour les grilles de cards.</p>
+      </div>
+      <div class="card card-elevated">
+        <h3>Sur fond soft</h3>
+        <p>Shadow elevated pour se détacher du beige warm.</p>
+      </div>
+      <div class="card card-accent">
+        <h3>Accent glow</h3>
+        <p>Gradient radial + border teal. Bloc winner ou premium.</p>
+      </div>
+    </div>
+
+    <div class="btn-showcase reveal" style="margin-top:1.5rem">
+      <a href="#" class="btn-primary"><span>Consultation offerte →</span></a>
+      <a href="#" class="btn-secondary"><span>Devis gratuit 7J/7</span></a>
+      <a href="#" class="btn-ghost btn-ghost-light"><span>En savoir plus</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- 14 · ICONOGRAPHIE                      -->
+<!-- ═══════════════════════════════════════ -->
+<section class="section" id="icono">
+  <div class="container">
+    <span class="section-label reveal">11 · Iconographie</span>
+    <h2 class="reveal">Lucide icons <em>exclusivement</em>.</h2>
+    <p class="section-desc reveal">Stroke-width 2, stroke-linecap round, stroke-linejoin round, fill none, stroke currentColor. Toujours inline dans <code>&lt;div class="w-embed"&gt;</code> avec aria-hidden="true".</p>
+
+    <div class="icon-grid reveal">
+      <div class="icon-item">
+        <div class="icon-wrap"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+        <span class="icon-name">Calendar</span>
+      </div>
+      <div class="icon-item">
+        <div class="icon-wrap"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+        <span class="icon-name">Users</span>
+      </div>
+      <div class="icon-item">
+        <div class="icon-wrap"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg></div>
+        <span class="icon-name">ShieldCheck</span>
+      </div>
+      <div class="icon-item">
+        <div class="icon-wrap"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
+        <span class="icon-name">Heart</span>
+      </div>
+      <div class="icon-item">
+        <div class="icon-wrap"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg></div>
+        <span class="icon-name">Award</span>
+      </div>
+      <div class="icon-item">
+        <div class="icon-wrap"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
+        <span class="icon-name">Sparkles</span>
+      </div>
+      <div class="icon-item">
+        <div class="icon-wrap"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
+        <span class="icon-name">Phone</span>
+      </div>
+      <div class="icon-item">
+        <div class="icon-wrap"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+        <span class="icon-name">Mail</span>
+      </div>
+      <div class="icon-item">
+        <div class="icon-wrap"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+        <span class="icon-name">MapPin</span>
+      </div>
+      <div class="icon-item">
+        <div class="icon-wrap"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+        <span class="icon-name">Clock</span>
+      </div>
+      <div class="icon-item">
+        <div class="icon-wrap"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+        <span class="icon-name">ArrowRight</span>
+      </div>
+      <div class="icon-item">
+        <div class="icon-wrap"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+        <span class="icon-name">ChevronDown</span>
+      </div>
+    </div>
+
+    <div class="rule-do reveal" style="margin-top:2rem">
+      <h4>✓ Règle icônes</h4>
+      <ul>
+        <li>Wrapper dans <code>&lt;div class="icon-wrap"&gt;</code> avec fond <code>--accent-bg</code> (#E2FCF6) et radius <code>0.5rem–0.75rem</code></li>
+        <li><code>aria-hidden="true"</code> sur toutes les icônes décoratives</li>
+        <li>Couleur via <code>stroke: currentColor</code> — hérite du parent</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- 15 · PATTERNS                          -->
+<!-- ═══════════════════════════════════════ -->
+<section class="section section-dark" id="patterns">
+  <div class="container">
+    <span class="section-label reveal">12 · Patterns</span>
+    <h2 class="reveal">Structure de <em>page type</em>.</h2>
+    <p class="section-desc reveal">Sections homepage dans l'ordre validé. Alternance white / soft / dark rythmée.</p>
+
+    <div class="patterns-list reveal">
+      <div class="pattern-item"><span class="pattern-num">01</span><span class="pattern-name">Navbar sticky</span><span class="pattern-tag pattern-tag-white">White</span></div>
+      <div class="pattern-item"><span class="pattern-num">02</span><span class="pattern-name">Hero — pill + H1 accent + CTAs + visual stack</span><span class="pattern-tag pattern-tag-white">White</span></div>
+      <div class="pattern-item"><span class="pattern-num">03</span><span class="pattern-name">Certifications — logos grid 6 cols</span><span class="pattern-tag pattern-tag-white">White</span></div>
+      <div class="pattern-item"><span class="pattern-num">04</span><span class="pattern-name">Comparaison — bento 3 actes (editorial + cards + payoff)</span><span class="pattern-tag pattern-tag-soft">Soft</span></div>
+      <div class="pattern-item"><span class="pattern-num">05</span><span class="pattern-name">Testimonial 1 — Google avis + card + image</span><span class="pattern-tag pattern-tag-white">White</span></div>
+      <div class="pattern-item"><span class="pattern-num">06</span><span class="pattern-name">Stats monolith — 4 KPIs animés</span><span class="pattern-tag pattern-tag-soft">Soft</span></div>
+      <div class="pattern-item"><span class="pattern-num">07</span><span class="pattern-name">Services grid — 6 cards</span><span class="pattern-tag pattern-tag-white">White</span></div>
+      <div class="pattern-item"><span class="pattern-num">08</span><span class="pattern-name">Zones intervention</span><span class="pattern-tag pattern-tag-soft">Soft</span></div>
+      <div class="pattern-item"><span class="pattern-num">09</span><span class="pattern-name">À propos — photo + flux narratif</span><span class="pattern-tag pattern-tag-soft">Soft</span></div>
+      <div class="pattern-item"><span class="pattern-num">10</span><span class="pattern-name">FAQ accordion</span><span class="pattern-tag pattern-tag-white">White</span></div>
+      <div class="pattern-item"><span class="pattern-num">11</span><span class="pattern-name">CTA final</span><span class="pattern-tag pattern-tag-soft">Soft</span></div>
+      <div class="pattern-item"><span class="pattern-num">12</span><span class="pattern-name">Footer 3 colonnes + contact + social</span><span class="pattern-tag pattern-tag-white" style="background:rgba(255,255,255,0.04)">Dark</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- 16 · MOTION                            -->
+<!-- ═══════════════════════════════════════ -->
+<section class="section" id="motion">
+  <div class="container">
+    <span class="section-label reveal">13 · Motion</span>
+    <h2 class="reveal">Motion <em>discrète</em>.</h2>
+    <p class="section-desc reveal">Transitions 200ms ease-out. Pas de parallaxe, pas de scroll-jack. Respecte prefers-reduced-motion.</p>
+
+    <div class="motion-grid reveal">
+      <div class="motion-card">
+        <h4>Hover card</h4>
+        <p class="motion-effect">translateY(-2px) + border teal</p>
+        <p class="motion-duration">200ms ease-out</p>
+      </div>
+      <div class="motion-card">
+        <h4>Scroll reveal</h4>
+        <p class="motion-effect">opacity 0→1 + translateY(28px→0)</p>
+        <p class="motion-duration">550ms ease · IntersectionObserver</p>
+      </div>
+      <div class="motion-card">
+        <h4>Button hover</h4>
+        <p class="motion-effect">background darken + translateY(-1px)</p>
+        <p class="motion-duration">200ms ease-out</p>
+      </div>
+      <div class="motion-card">
+        <h4>FAQ toggle</h4>
+        <p class="motion-effect">max-height + rotate chevron</p>
+        <p class="motion-duration">350ms ease</p>
+      </div>
+      <div class="motion-card">
+        <h4>KPI counter</h4>
+        <p class="motion-effect">cubic ease (1-(1-t)³) · count up</p>
+        <p class="motion-duration">1800ms · IntersectionObserver · rAF</p>
+      </div>
+      <div class="motion-card">
+        <h4>Logo slider</h4>
+        <p class="motion-effect">translateX infinite loop</p>
+        <p class="motion-duration">32s linear · mask-image fade edges</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- 17 · COPY & TONE                       -->
+<!-- ═══════════════════════════════════════ -->
+<section class="section section-dark" id="copy">
+  <div class="container">
+    <span class="section-label reveal">14 · Copy & Tone</span>
+    <h2 class="reveal">Voice <em>Alu33</em>.</h2>
+    <p class="section-desc reveal">Le copy est un élément de design. Le copy HTML est intouchable (travail SEO 18 mois). Liberté créative uniquement sur pills, badges et CTAs.</p>
+
+    <div class="copy-rules reveal">
+      <div class="rule-do">
+        <h4>✓ Do</h4>
+        <ul>
+          <li>Copy SEO intouchable — jamais modifier le HTML fourni</li>
+          <li>Accent teal <code>.xxx-accent { color: #0A97A3 }</code> sur un mot-clé stratégique par H2</li>
+          <li>Phrases courtes, pas de blocs >4 lignes sans respiration</li>
+          <li>Verbes d'action concrets : "installer", "poser", "garantir"</li>
+          <li>Noms propres cités tels quels : Bordeaux, Gironde, RGE</li>
+          <li>Ton pro mais accessible — artisan de confiance, pas corporate</li>
+          <li>Liberté créative sur : pills, taglines, badges, labels, CTAs</li>
+        </ul>
+      </div>
+      <div class="rule-dont">
+        <h4>✗ Don't</h4>
+        <ul>
+          <li>Modifier le copy HTML SEO sans validation</li>
+          <li>Italique sur headings (sauf comparison_heading-accent et comparison_payoff-heading-accent)</li>
+          <li>Buzzwords creux : "synergie", "disruptif", "révolutionnaire"</li>
+          <li>Tirets cadratins — trop AI-generated</li>
+          <li>Promesses quantifiées non-sourcées</li>
+          <li>Title case anglais sur le copy français</li>
+          <li>Emojis dans les titres H1/H2</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="cta-ref reveal">
+      <div class="cta-ref-item">
+        <code style="color:var(--light)">"Consultation offerte →"</code>
+        <span>CTA principal</span>
+      </div>
+      <div class="cta-ref-item">
+        <code style="color:var(--light)">"Devis gratuit 7J/7"</code>
+        <span>CTA secondaire</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- FOOTER                                 -->
+<!-- ═══════════════════════════════════════ -->
+<footer class="footer">
+  <div class="container">
+    <p>Alu33 Design System v1.0 · Avril 2026</p>
+  </div>
+</footer>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- JS · Scroll Reveal                     -->
+<!-- ═══════════════════════════════════════ -->
+<script>
+(function(){
+  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+    document.querySelectorAll('.reveal').forEach(function(el){el.classList.add('visible')});
+    return;
+  }
+  var observer=new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(entry.isIntersecting){
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  },{threshold:0.15,rootMargin:'0px 0px -40px 0px'});
+  document.querySelectorAll('.reveal').forEach(function(el){observer.observe(el)});
+})();
+</script>
+</body>
+</html>
